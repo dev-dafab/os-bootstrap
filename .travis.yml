@@ -10,3 +10,5 @@ os:
 cache:
   directories:
     - "node_modules"
+
+service_name: travis-pro
