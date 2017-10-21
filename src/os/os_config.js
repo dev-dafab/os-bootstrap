@@ -6,10 +6,8 @@ let shells = null;
 function getOsInstallCommand() {
     if (os.platform() === 'darwin') {
         return 'brew install '
-    } else if (os.platform() === 'linux') {
-        return 'sudo apt-get install -y '
     } else {
-        throw new Error('Your system is not yet supported');
+        return 'sudo apt-get install -y '
     }
 }
 
