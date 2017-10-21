@@ -1,4 +1,5 @@
 {
+  "description": "These are just examples for demonstration, nothing prescriptive",
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -7,14 +8,18 @@
     "functions": 99,
     "branches": 99,
     "include": [
-      "src/**/*.js", "./index.js"
+      "src/**/*.js",
+      "src/*.js"
     ],
     "exclude": [
       "test/*.js"
     ],
-    "reporter": ["lcov", "text-summary"],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
     "cache": true,
     "all": true,
     "report-dir": "./coverage"
   }
- }
+}
