@@ -1,11 +1,12 @@
 {
-  "name": "osBootstrap",
+  "name": "osbootstrap",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:node_modules/babel-core/register $(find api -name '*-test.js') &&  cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:node_modules/babel-core/register $(find api -name '*.test.js') &&  cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "localeCoverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:node_modules/babel-core/register $(find api -name '*-test.js')"
   },
   "repository": {
     "type": "git",
@@ -26,10 +27,9 @@
     "jslint": "^0.11.0",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1",
     "proxyquire": "^1.8.0",
     "sinon": "^4.0.1"
   },
-  "dependencies": {
-    "nyc": "^11.2.1"
-  }
+  "dependencies": {}
 }
