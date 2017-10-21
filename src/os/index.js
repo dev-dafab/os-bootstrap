@@ -1,7 +1,2 @@
 
-const os = require('os');
-
-
-const OS = function OS() {
-
-};
+module.exports = require('./os_config');
