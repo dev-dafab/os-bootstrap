@@ -1,3 +1,4 @@
-[![Travis Build Status](https://travis-ci.org/os-bootstrap/os-bootstrap.svg?branch=master)](https://travis-ci.org/neovim/neovim)
+[![Travis Build Status](https://travis-ci.org/fab-du/os-bootstrap)](https://github.com/fab-du/os-bootstrap)
+
 # os-bootstrap
 dependencies installer, dotfiles installer 
