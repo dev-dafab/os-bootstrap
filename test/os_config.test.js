@@ -40,15 +40,3 @@ describe('OS Properties Set Suite OSX', () => {
   });
 
 });
-
-describe('Only OSX and Linux are supported yet', () => {
-  let os_config;
-  let osStub = {};
-  osStub.platform = () => 'window';
-
-  it('install command should throws and Error', () => {
-    os_config = proxyquire('../src/os/os_config', {'os': osStub})
-    expect(os_config).to.throw(/not yet supported/);
-  });
-
-});
