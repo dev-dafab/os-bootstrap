@@ -1,2 +1,1 @@
-
-module.exports = require('./os_config');
+module.exports = require("./os_config");
