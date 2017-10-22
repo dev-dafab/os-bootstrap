@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:node_modules/babel-core/register $(find api -name '*.test.js') &&  cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "localeCoverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:node_modules/babel-core/register $(find api -name '*-test.js')"
+    "coverage": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "localcover": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,7 @@
     "proxyquire": "^1.8.0",
     "sinon": "^4.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "commander": "^2.11.0"
+  }
 }

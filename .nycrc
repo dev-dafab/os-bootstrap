@@ -16,7 +16,7 @@
     ],
     "reporter": [
       "lcov",
-      "text-summary"
+      "text"
     ],
     "cache": true,
     "all": true,

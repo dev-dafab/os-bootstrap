@@ -1,0 +1,37 @@
+dotfiles installation:
+- vim:
+    directory: vim
+    directories:
+      - ~/.config/nvim
+      - ~/.vim
+    file: vim/vimrc.vim
+    files:
+      - ~/.vimrc
+
+- git gitconfig:
+    file: git/gitconfig
+    files:
+      - ~/.gitconfig
+
+- git gitignore:
+    file: git/gitignore_global
+    files:
+      - ~/.gitignore_global
+
+- zsh:
+    directory: zsh
+    directories:
+      - ~/.zsh
+    file: zsh/zshenv
+    files:
+      - ~/.zshenv
+
+- tmux:
+    file: tmux/tmux.tmux
+    files:
+      - ~/.tmux.conf
+
+- fzf:
+    directory: fzf
+    directories:
+      - ~/.fzf
