@@ -1,19 +1,5 @@
 
-
-function parser(options) {
-    let argv;
-
-    if (!options.argv) {
-        throw new Error('Arguments are required');
-    }
-
-    return {
-      start: function () {
-        console.log('start programm');
-      }
-    };
-
+module.exports = function (options) {
+  options['program']= require('./argv_parser')(options);
+  module.exports = require('./config_file_parser')(options);
 }
-
-
-module.exports = parser;

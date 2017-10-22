@@ -5,9 +5,7 @@ dotfiles installation:
       - ~/.config/nvim
       - ~/.vim
     file: vim/vimrc.vim
-    files:
-      - ~/.vimrc
-
+    files: [~/.vimrc]
 - git gitconfig:
     file: git/gitconfig
     files:
@@ -35,3 +33,35 @@ dotfiles installation:
     directory: fzf
     directories:
       - ~/.fzf
+
+
+dependencies:
+  - git-core
+  - git
+  - curl
+  - wget
+  - ssh
+  - sshfs
+  - httpie
+  - tree
+  - rofie:
+    os: [linux]
+  - xclip:
+    os: [linux]
+  - tmux
+  - tmuxinator
+  - pure-prompt:
+    command: npm install -g pure-prompt
+dbs:
+  - postgresql
+  - [mysql-client, mysql-server, mysql-common]:
+  - mongodb
+dev:
+  - build-essential:
+    os: [linux]
+  - web:
+    - node
+  - java:
+    - java:
+      - {os: [linux], command: apt-get install java}
+      - {os: [osx], command: brew install java}
