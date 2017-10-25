@@ -3,6 +3,18 @@
 # os-bootstrap
 dependencies installer, dotfiles installer 
 
+# Run the example (without installation)
+
+Make sure you have Nodejs install
+
+```
+npm install && npm run dev
+```
+
+# Install the sample configuration in Docker __TODO__
+
+You need to have Nodejs and docker install
+
 
 # Config file format
 
