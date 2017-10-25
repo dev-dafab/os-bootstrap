@@ -34,7 +34,6 @@ dotfiles installation:
     directories:
       - ~/.fzf
 
-
 dependencies:
   - git-core
   - git
@@ -45,23 +44,34 @@ dependencies:
   - httpie
   - tree
   - rofie:
-    os: [linux]
+    os:
+      name: linux
   - xclip:
-    os: [linux]
+    os:
+      name: linux
+  - pbcopy:
+    os:
+      name: darwin
+      command: custom_install_command install pbcopy
   - tmux
   - tmuxinator
   - pure-prompt:
-    command: npm install -g pure-prompt
+      os:
+        - name: linux
+          command: npm install -g pure-prompt
+  - java:
+    os:
+      - name: linux
+        command: apt-get install java
+      - name: darwin
+        command: brew install java
+  - oracle:
+    os:
+      - name: linux
+        command: apt-get install oracle
+      - name: darwin
+        command: brew install oracle
 dbs:
   - postgresql
   - [mysql-client, mysql-server, mysql-common]:
   - mongodb
-dev:
-  - build-essential:
-    os: [linux]
-  - web:
-    - node
-  - java:
-    - java:
-      - {os: [linux], command: apt-get install java}
-      - {os: [osx], command: brew install java}

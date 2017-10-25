@@ -52,7 +52,68 @@ function parseDotfilesLink(config, dotfilesDir) {
     });
   });
 
-  console.log(result);
+  return result;
+}
+
+function getDepenciesWithProvidedCommand(dependencies, os) {
+  let result = [];
+  let result1 = dependencies
+    .filter(d => typeof d === "object")
+    .filter(d => "os" in d)
+    .filter(d => !Array.isArray(d["os"]))
+    .filter(d => "name" in d["os"])
+    .filter(d => d["os"]["name"] === os)
+    .filter(d => "command" in d["os"])
+    .map(d => {
+      return {
+        name: "Installation of: " + Object.keys(d)[0],
+        command: d["os"]["command"]
+      };
+    });
+
+  let result2 = dependencies
+    .filter(d => typeof d === "object")
+    .filter(d => "os" in d)
+    .filter(d => Array.isArray(d["os"]))
+    .map(d => d["os"])
+    .map(d => {
+      return d.find(f => os === f["name"]);
+    })
+    .map(d => {
+      return {
+        name: "Installation of ",
+        command: d["command"]
+      };
+    });
+  return result1.concat(result2);
+}
+
+function getOsSpecificDepencies(dependencies, installCommand, os) {
+  const simpleDeps = dependencies.filter(d => typeof d === "string");
+  const osDependencies = dependencies
+    .filter(d => typeof d === "object" && !Array.isArray(d))
+    .filter(d => "os" in d)
+    .filter(d => d["os"]["name"] === os)
+    .filter(d => !("command" in d["os"]))
+    .map(d => Object.keys(d)[0]);
+  let deps = simpleDeps.concat(osDependencies);
+  deps = deps.map(d => {
+    return {
+      name: "Installation of " + d,
+      command: installCommand + " " + d
+    };
+  });
+  return deps;
+}
+
+function parseDepencencies(config, installCommand, os) {
+  result = [];
+  if (!config) {
+    return null;
+  }
+  return getDepenciesWithProvidedCommand(config, os).concat(
+    getOsSpecificDepencies(config, installCommand, os)
+  );
 }
 
 const api = {};
@@ -74,7 +135,15 @@ function config_file_parser(options) {
   }
 
   let config = readConfigFile(configFile);
+
   parseDotfilesLink(config["dotfiles installation"], dotfilesDir);
+  let ret = parseDepencencies(
+    config["dependencies"],
+    options.os.install_command,
+    options.os.platform
+  );
+
+  console.log(ret);
 
   return api;
 }
