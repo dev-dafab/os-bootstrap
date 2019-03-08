@@ -1,6 +1,4 @@
-/**
- *
- */
+const shell = require('shelljs');
 
 function Utils() {}
 
@@ -16,4 +14,7 @@ Utils.prototype.run_cmd = function(cmd, cb) {
   });
 };
 
-module.exports = Utils;
+Utils.prototype.mkdir = function(dir) {
+}
+
+module.exports = Utils;:

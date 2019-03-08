@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>os-bootstraper web</title>
+    <link rel="stylesheet" href="/css/tailwind.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script src="/js/mustache.min.js" charset="utf-8"></script>
+    <script src="/js/jquery.min.js" charset="utf-8"></script>
+    <script src="/js/index.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+    <div id="content" class='flex flex-row'>
+    <aside class='w-1/5'>
+      aside content
+    </aside>
+
+    <div class='flex flex-col flex-1 px-8 py-8'>
+      <div id='selected' class='px-8 border border-blue h-12'>
+        Selection Preview
+        <div class='selected__items'>
+          Selected Items
+        </div> 
+      </div>
+
+      <div id='wizard' class='px-8 flex-1 w-full border border-red'>
+        <div  id='wizard__item_0' class='min-h-full h-64' >
+          OS Selecation  
+        </div>
+      </div>
+
+      <div class="btn__group w-full flex justify-center text-center py-4">
+        <div class="w-full">
+          <button id='previous' class='h-12 w-1/5 uppercase text-white bg-blue-lighter hover:bg-blue-darker px-3 py-3 outline-none'> previous </button>
+          <button id='next' class='h-12 w-1/5 uppercase text-white bg-blue-lighter hover:bg-blue-darker px-3 py-3 outline-none'> next </button>
+        </div>
+      </div>
+
+    </div>
+
+</div>
+
+    <footer class="max-w-md mx-auto mt-16 py-16 border-t border-grey-light">
+      <div class="text-center">
+        <div class="text-center">
+          <h2>OS Bootstrapper </h2>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

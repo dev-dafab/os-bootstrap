@@ -1,7 +1,7 @@
 [![Travis Build Status](https://travis-ci.org/fab-du/os-bootstrap.svg?branch=master)](https://travis-ci.org/fab-du/os-bootstrap.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/fab-du/os-bootstrap/badge.svg?branch=master)](https://coveralls.io/github/fab-du/os-bootstrap?branch=master)
 # os-bootstrap
-dependencies installer, dotfiles installer 
+dependencies installer, dotfiles installer
 
 # Run the example (without installation)
 
@@ -11,9 +11,30 @@ Make sure you have Nodejs install
 npm install && npm run dev
 ```
 
-# Install the sample configuration in Docker __TODO__
+# Limitations
 
-You need to have Nodejs and docker install
+* This software only support  __linux__ alike OS and Mac OS.
+* the software only work with Posix compliant filesystem.
+
+# dependencies installation command
+
+For linux like OS if no installation command ist provided, the software will assume the following installation
+commands ( in order ) until it find the first command that is runnable:
+
+- `apt-get`
+- `yum` (Red Hat)
+- `urpmi` (Mandriva)
+- `yast` (Open Suse)
+
+
+# files installation
+
+`ln -s` is use for configuration files installation.
+It s possible to provided your own installation command.
+
+
+# Integration testing with docker
+__TODO__
 
 
 # Config file format
@@ -21,10 +42,10 @@ You need to have Nodejs and docker install
 ```yml
 dotfiles installation:
 - vim:
-    directory: vim 
+    directory: vim
     directories:
       - ~/.config/nvim
-      - ~/.vim      
+      - ~/.vim
     file: vim/vimrc.vim
     files:
       - ~/.vimrc
@@ -33,27 +54,27 @@ dotfiles installation:
     file: git/gitconfig
     files:
       - ~/.gitconfig
-      
+
 - git gitignore:
     file: git/gitignore_global
     files:
       - ~/.gitignore_global
-      
+
 - zsh:
-    directory: zsh 
+    directory: zsh
     directories:
       - ~/.zsh
     file: zsh/zshenv
     files:
       - ~/.zshenv
-      
+
 - tmux:
     file: tmux/tmux.tmux
     files:
       - ~/.tmux.conf
-      
+
 - fzf:
-    directory: fzf 
+    directory: fzf
     directories:
       - ~/.fzf
 ```

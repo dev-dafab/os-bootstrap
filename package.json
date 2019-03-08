@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
     "test": "./node_modules/mocha/bin/mocha test",
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "localcover": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js"
@@ -34,6 +35,8 @@
   },
   "dependencies": {
     "commander": "^2.11.0",
-    "js-yaml": "^3.10.0"
+    "express": "^4.16.4",
+    "js-yaml": "^3.10.0",
+    "shelljs": "^0.7.8"
   }
 }

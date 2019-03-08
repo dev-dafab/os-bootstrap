@@ -7,5 +7,11 @@ describe("Dotfiles config Parser", () => {
 
   it("should display", () => {});
 
+  it("should return", () => {
+    console.log("klasjdfkj");
+    console.log("klasjdfkj");
+    console.log("klasjdfkj");
+  });
+
   it("should return");
 });
