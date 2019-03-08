@@ -42,41 +42,83 @@ __TODO__
 ```yml
 dotfiles installation:
 - vim:
-    directory: vim
-    directories:
+  - src: vim
+    destination:
       - ~/.config/nvim
       - ~/.vim
-    file: vim/vimrc.vim
-    files:
+  - src: vim/vimrc.vim
+    destination:
       - ~/.vimrc
 
 - git gitconfig:
-    file: git/gitconfig
-    files:
+  - src: git/gitconfig
+    destination:
       - ~/.gitconfig
 
 - git gitignore:
-    file: git/gitignore_global
-    files:
+  - src: git/gitignore_global
+    destination:
       - ~/.gitignore_global
 
 - zsh:
-    directory: zsh
-    directories:
+  - src: zsh
+    destination:
       - ~/.zsh
-    file: zsh/zshenv
-    files:
-      - ~/.zshenv
+
+- fileWithoutSource:
+  - src: fileWithoutSource
+
+- wrongConfiguration:
 
 - tmux:
-    file: tmux/tmux.tmux
-    files:
+  - src: tmux/tmux.tmux
+    destination:
       - ~/.tmux.conf
 
 - fzf:
-    directory: fzf
-    directories:
-      - ~/.fzf
+  - src: fzf
+    destination:
+    - ~/.fzf
+
+dependencies:
+- git-core
+- git
+- curl
+- wget
+- ssh
+- sshfs
+- httpie
+- tree
+- stow
+- shellcheck
+- xclip:
+    os:
+      name: linux
+- pbcopy:
+    os:
+    - name: darwin
+      command: custom_install_command install pbcopy
+- tmux
+- tmuxinator
+- pure-prompt:
+    os:
+    - name: linux
+      command: npm install -g pure-prompt
+- java:
+    os:
+    - name: linux
+      command: apt-get install java
+    - name: darwin
+      command: brew install java
+- oracle:
+    os:
+    - name: linux
+      command: apt-get install oracle
+    - name: darwin
+      command: brew install oracle
+- postgresql
+- [mysql-client, mysql-server, mysql-common]
+- mongodb
 ```
 
 # Consideration
