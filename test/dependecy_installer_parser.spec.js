@@ -58,7 +58,7 @@ describe("Dependencies Parser", () => {
       run_cmd_darwin,
       os_name_darwin
     );
-    expect(ret_linux).to.include.members(expected_for_linux);
+    expect(ret_linux).to.include.members(expected_for_linux); // fix it 
     expect(ret_darwin).to.include.members(expected_for_darwin);
   });
 
