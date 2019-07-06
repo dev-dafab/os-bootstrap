@@ -1,8 +1,6 @@
 const os = require("os");
 const fs = require("fs");
 
-let shells = null;
-
 function getOsInstallCommand() {
   if (os.platform() === "darwin") {
     return "brew install ";
@@ -43,6 +41,6 @@ module.exports = {
   platform: os.platform(),
   backup_dir: getBackupDir(),
   shells: getAvailableShells(),
-  has_shell: has_shell,
+  has_shell: has_shell(getAvailableShells()),
   install_command: getOsInstallCommand()
 };

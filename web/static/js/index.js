@@ -19,16 +19,16 @@ const wizardNavigation = () => {
 
   api.next = () => {
     currentStep++;
-    console.log("next click");
   };
 
   api.getNextStep = () => currentStep + 1;
 
   api.isLastStep = () => currentStep === steps.length - 1;
 
+  api.isFirstStep = () => currentStep === 0;
+
   api.previous = () => {
     currentStep--;
-    console.log("previous click");
   };
   return api;
 };
@@ -54,6 +54,19 @@ const onNext = navigationService => () => {
   navigationService.next();
 };
 
+const onPrevious = navigationService => () => {
+  if (navigationService.isFirstStep()) return;
+
+  const wizardEl = document.querySelector("#wizard");
+  const currentStepEl = wizardEl.firstElementChild;
+  currentStepEl.remove();
+  const rendered = Mustache.render(
+    osSelectionTemplate(navigationService.currentStep())
+  );
+  $(wizardEl).html(rendered);
+  navigationService.previous();
+};
+
 window.onload = () => {
   const navigationService = wizardNavigation();
   document
@@ -61,5 +74,5 @@ window.onload = () => {
     .addEventListener("click", onNext(navigationService));
   document
     .querySelector("#previous")
-    .addEventListener("click", navigationService.previous);
+    .addEventListener("click", onPrevious(navigationService));
 };

@@ -1,5 +1,8 @@
-
-module.exports = function (options) {
-  options['program']= require('./argv_parser')(options);
-  module.exports = require('./config_file_parser')(options);
-}
+module.exports = configFileObj => {
+  return {
+    dotfiles: require("./dependency_parser.js")(configFileObj.dependencies),
+    depencies: require("./dotfiles_parser.js")(
+      configFileObj["dotfiles installation"]
+    )
+  };
+};
