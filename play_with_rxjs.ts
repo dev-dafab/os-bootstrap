@@ -1,14 +1,7 @@
-const { Subject, ReplaySubject, of, concat } = require("rxjs");
-const {
-  map,
-  filter,
-  merge,
-  mergeAll,
-  delay,
-  tap,
-  takeUntil
-} = require("rxjs/operators");
-const { prompt, ui } = require("inquirer");
+import {Subject, ReplaySubject} from "rxjs";
+import { tap } from "rxjs/operators";
+
+import { prompt, ui, Question } from "inquirer";
 
 const previousSelection$ = new ReplaySubject(null);
 const parseSelection = selection => console.log(selection);
@@ -27,7 +20,7 @@ const defaultSuccessHandler = message => console.log(message);
 var prompts = new Subject();
 prompt(prompts);
 
-const question = [
+const question: Question[]= [
   {
     type: "list",
     name: "q",
@@ -36,7 +29,7 @@ const question = [
   }
 ];
 
-const questions = [
+const questions: Question[] = [
   {
     type: "list",
     name: "q",

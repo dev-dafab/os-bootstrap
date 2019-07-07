@@ -1,28 +1,26 @@
-const MAX_DEPTH = 2;
+const isArray = (obj: any) => Array.isArray(obj);
 
-const isArray = obj => Array.isArray(obj);
-
-const hasInstallationCmd = obj => obj.hasOwnProperty("command");
-const isOsSpecify = obj => obj.hasOwnProperty("name");
-const isStandAloneDependency = obj => typeof obj === "string";
-const isObject = obj => typeof obj === "object";
-const installCmdHadSpace = cmd => cmd.trim().length < cmd.length;
-const maxDepthReached = value => value === MAX_DEPTH;
+const hasInstallationCmd = (obj: any) => obj.hasOwnProperty("command");
+const isOsSpecify = (obj: any) => obj.hasOwnProperty("name");
+const isStandAloneDependency = (obj: any) => typeof obj === "string";
+const isObject = (obj: any) => typeof obj === "object";
+const installCmdHadSpace = (cmd: any) => cmd.trim().length < cmd.length;
+const maxDepthReached = (value: number) => value === 2;
 
 // TODO fds: remove this when nodejs will support flat
-const flat = (accumulator, currentValue) => {
+const flat = (accumulator: any, currentValue: any) => {
   if (Array.isArray(currentValue)) {
     return [...accumulator, ...currentValue];
   }
   return accumulator.concat(currentValue);
 };
 
-const hasValidOsSpecificInstallation = obj => {
+const hasValidOsSpecificInstallation = (obj: any) => {
   if (!Object.hasOwnProperty("os")) {
     return false;
   }
-  if (isArray(obj)) {
-    return obj.every(config => isOsSpecify(config));
+  if (Array.isArray(isArray(obj))) {
+    return obj.every((config: any) => isOsSpecify(config));
   }
   isOsSpecify(obj);
 };
@@ -30,7 +28,7 @@ const hasValidOsSpecificInstallation = obj => {
 let depth = 0;
 
 const parse_depencencies = (
-  obj,
+  obj: any,
   _installation_cmd = "apt-get install ",
   os_name = "linux"
 ) => {
@@ -39,7 +37,7 @@ const parse_depencencies = (
     : _installation_cmd.concat(" ");
 
   let ret = obj
-    .map(entry => {
+    .map((entry: any) => {
       if (isStandAloneDependency(entry)) {
         return installation_cmd.concat(entry);
       }
@@ -70,7 +68,7 @@ const parse_depencencies = (
         }
 
         // find os matching detected os
-        const cmd = os_dependencies.find(el => el["name"] === os_name);
+        const cmd = os_dependencies.find((el: any) => el["name"] === os_name);
         if (!cmd) return "";
         const ret =
           cmd["name"] === os_name
@@ -81,7 +79,7 @@ const parse_depencencies = (
         return ret;
       }
     })
-    .filter(entry => entry);
+    .filter((entry: any) => entry);
   // .flat(depth) -> Waiting for you
 
   // TODO Remove this when nodejs will support flat()
@@ -91,4 +89,4 @@ const parse_depencencies = (
   return ret;
 };
 
-module.exports = parse_depencencies;
+export { parse_depencencies };

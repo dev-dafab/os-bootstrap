@@ -2,9 +2,12 @@
   "name": "osbootstrap",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "dev": "nodemon index.js --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
+    "watch": "tsc -w",
+    "dev:ts": "ts-node index.ts --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
+    "dev": "nodemon",
+    "dev:debug": "node --inspect-brk node_modules/ts-node/dist/bin.js --transpile-only index.ts --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
     "dev:args_parser": "nodemon src/parser/argv_parser.js --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
     "dev:depencies_parser": "nodemon src/parser/dependency_parser.js --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
     "dev:packages_parser": "nodemon src/parser/packages_parser.js --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
@@ -12,6 +15,7 @@
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "localcover": "./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text ./node_modules/mocha/bin/_mocha test/*.js",
     "build": "rollup -c | nexe --resources='./dist/*' -o dist/os-bootstrap",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "cli": "nodemon src/cli/cli.js"
   },
   "repository": {
@@ -25,6 +29,11 @@
   },
   "homepage": "https://github.com/fab-du/os-bootstrap#readme",
   "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/inquirer": "^6.0.3",
+    "@types/js-yaml": "^3.12.1",
+    "@types/node": "^12.0.12",
+    "@types/shelljs": "^0.8.5",
     "babel-core": "^6.26.0",
     "chai": "^4.1.2",
     "clang-format": "^1.1.0",
@@ -41,10 +50,14 @@
     "rollup": "^1.16.6",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "sinon": "^4.0.1"
+    "sinon": "^4.0.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "commander": "^2.11.0",
+    "esm": "^3.2.25",
     "express": "^4.16.4",
     "inquirer": "^6.4.1",
     "js-yaml": "^3.10.0",
