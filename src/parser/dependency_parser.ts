@@ -1,19 +1,14 @@
+import {DependencyConf, DependencyEntry, OsInstallationConfig} from "../models/dependency-entry";
+import {flatten} from "../utils/array_util";
+
 const isArray = (obj: any) => Array.isArray(obj);
 
-const hasInstallationCmd = (obj: any) => obj.hasOwnProperty("command");
+const hasInstallationCmd = (obj: OsInstallationConfig) => obj.hasOwnProperty("command");
 const isOsSpecify = (obj: any) => obj.hasOwnProperty("name");
 const isStandAloneDependency = (obj: any) => typeof obj === "string";
-const isObject = (obj: any) => typeof obj === "object";
-const installCmdHadSpace = (cmd: any) => cmd.trim().length < cmd.length;
+const isObject = (obj: DependencyConf) => typeof obj === "object";
+const installCmdHadSpace = (cmd: string) => cmd.trim().length < cmd.length;
 const maxDepthReached = (value: number) => value === 2;
-
-// TODO fds: remove this when nodejs will support flat
-const flat = (accumulator: any, currentValue: any) => {
-  if (Array.isArray(currentValue)) {
-    return [...accumulator, ...currentValue];
-  }
-  return accumulator.concat(currentValue);
-};
 
 const hasValidOsSpecificInstallation = (obj: any) => {
   if (!Object.hasOwnProperty("os")) {
@@ -28,10 +23,10 @@ const hasValidOsSpecificInstallation = (obj: any) => {
 let depth = 0;
 
 const parse_depencencies = (
-  obj: any,
+  obj: DependencyEntry[],
   _installation_cmd = "apt-get install ",
   os_name = "linux"
-) => {
+): string[] => {
   const installation_cmd = installCmdHadSpace(_installation_cmd)
     ? _installation_cmd
     : _installation_cmd.concat(" ");
@@ -63,30 +58,23 @@ const parse_depencencies = (
               ? hasInstallationCmd(os_dependencies)
                 ? os_dependencies["command"]
                 : installation_cmd.concat(depencyName)
+                : "";
+            return ret;
+          }
+
+          const cmd = os_dependencies.find((el: any) => el["name"] === os_name);
+          if (!cmd) return "";
+          const ret =
+            cmd["name"] === os_name
+              ? hasInstallationCmd(cmd)
+              ? cmd["command"]
+              : cmd.concat(depencyName)
               : "";
           return ret;
         }
+  })
+  return flatten(ret.filter(e => e));
 
-        // find os matching detected os
-        const cmd = os_dependencies.find((el: any) => el["name"] === os_name);
-        if (!cmd) return "";
-        const ret =
-          cmd["name"] === os_name
-            ? hasInstallationCmd(cmd)
-              ? cmd["command"]
-              : cmd.concat(depencyName)
-            : "";
-        return ret;
-      }
-    })
-    .filter((entry: any) => entry);
-  // .flat(depth) -> Waiting for you
-
-  // TODO Remove this when nodejs will support flat()
-  for (let i = 0; i < depth + 1; i++) {
-    ret = ret.reduce(flat, []);
-  }
-  return ret;
 };
 
 export { parse_depencencies };

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "tsc": "tsc",
     "watch": "tsc -w",
     "dev:ts": "ts-node index.ts --config-file=$PWD/documentation/dotfile_config.yml --dotfiles-dir=$PWD/documentation/dotfiles",
     "dev": "nodemon",

@@ -1,11 +1,8 @@
 import {DotfileEntry, DotfileEntryDefinition} from "../models/dotfile-entry";
+import {flatten} from "../utils/array_util";
 
 const isValidConfiguration = (obj: DotfileEntryDefinition[]) =>
   Array.isArray(obj) && obj.every(el => el.hasOwnProperty("src"));
-
-function flatten(arr1: any[]): any[] {
-  return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []);
-}
 
 const hasDestination = (obj: DotfileEntryDefinition) => obj.hasOwnProperty("destination");
 const getFullInstallationCmdWithDestinationProvided = (cmd: string, src: string, dest: string[]) =>
@@ -23,7 +20,7 @@ const getFullInstallationCmd = (cmd: string, entry: DotfileEntryDefinition) =>
       )
     : getFullInstallationCmdWithoutDestination(cmd, entry.src);
 
-const parse_dotfiles_link = (configs: DotfileEntry[], installation_cmd = "ln -s ") => {
+const parse_dotfiles_link = (configs: DotfileEntry[], installation_cmd = "ln -s "): string[] => {
   return flatten(
     configs.map((entry: DotfileEntry) => {
     const key = Object.keys(entry)[0];

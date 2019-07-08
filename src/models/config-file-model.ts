@@ -6,5 +6,5 @@ export interface ConfigFileModel {
 
   dotfiles: DotfileEntry[];
 
-  dependencies: string[] | DependencyEntry[];
+  dependencies: DependencyEntry[];
 }
