@@ -42,10 +42,10 @@ __TODO__
 
 ```yml
 core:
-OS: OSX
-DotfilesLocation: ~/.dotfiles
+os: OSX
+dotfiles_location: ~/.dotfiles
 
-dotfiles installation:
+dotfiles:
 - vim:
   - src: vim
     destination:

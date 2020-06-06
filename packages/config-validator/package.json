@@ -1,0 +1,35 @@
+{
+  "name": "config-validator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "check": "gts check",
+    "tsc": "tsc",
+    "compile": "tsc",
+    "lint:check": "npm run check",
+    "lint:clean": "gts clean",
+    "lint:fix": "gts fix",
+    "pretest": "npm run compile",
+    "posttest": "npm run check",
+    "start": "ts-node index.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/js-yaml": "^3.12.4",
+    "@types/node": "^14.0.11",
+    "jest": "^26.0.1",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "yaml-schema-validator": "^1.2.2"
+  },
+  "dependencies": {
+    "class-transformer": "^0.2.3",
+    "inquirer": "^7.1.0",
+    "js-yaml": "^3.14.0",
+    "reflect-metadata": "^0.1.13"
+  }
+}
