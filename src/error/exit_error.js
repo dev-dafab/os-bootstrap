@@ -1,7 +1,6 @@
-
-const util = require('util');
+const util = require('util')
 
 let ExitError = {}
-util.inherits(ExitError, Error);
+util.inherits(ExitError, Error)
 
 ExitError.prot

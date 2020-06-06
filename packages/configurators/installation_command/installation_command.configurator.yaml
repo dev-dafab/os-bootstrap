@@ -1,0 +1,16 @@
+Id: Installation.Command.Config
+Name: InstallationCommand
+Author: FDS
+Objects:
+  - type: list
+    name: InstallationCommand
+    message: "Select preferred installation command"
+    choices: [
+      { name: "brew", value: "yes && brew install" },
+      { name: "apt", value: "yes && apt install" },
+      { name: "yum", value: "yes && yum install" },
+      { name: "urpmi", value: "yes && urpmi install" },
+      { name: "yast", value: "yes && yast install" },
+      { name: "apt-get", value: "yes && apt-get install" },
+      ]
+

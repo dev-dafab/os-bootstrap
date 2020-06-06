@@ -1,4 +1,3 @@
-const inquirer = require("inquirer");
+const inquirer = require('inquirer')
 
-const whetherSaveInFileOrExecute = async () => {
-};
+const whetherSaveInFileOrExecute = async () => {}

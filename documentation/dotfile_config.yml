@@ -1,3 +1,7 @@
+core:
+OS: OSX
+DotfilesLocation: ~/.dotfiles
+
 dotfiles installation:
 - vim:
   - src: vim

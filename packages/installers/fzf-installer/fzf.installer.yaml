@@ -1,0 +1,24 @@
+Id: FZF.Installer
+Name: FzfInstaller
+Author: FDS
+Objects:
+  - type: confirm
+    name: WithFZF
+    message: "Do you like to install FZF?"
+  - type: "checkbox"
+    name: "FZFInstallationOptions"
+    when: !!js/function function(answer) {return answer.WithFZF}
+    message: "FZF installation pptions"
+    default: [ "--bin"]
+    choices: [
+      { name: " bin only", value: "--bin", checked: true, enabled: true },
+      { name: " all", value: "--all" },
+      { name: " xdg", value: "--xdg" },
+      { name: " no key bindings", value: "--no-key-bindings" },
+      { name: " no completion", value: "--no-completion" },
+      { name: " no update rc", value: "--no-update-rc" },
+      { name: " no fish", value: "--no-fish" },
+      { name: " no bash", value: "--no-bash" },
+      { name: " no zsh", value: "--no-zsh" },
+      { name: " 32 bit version", value: "--32" },
+      ]

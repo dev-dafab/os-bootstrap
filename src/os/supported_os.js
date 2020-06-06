@@ -1,1 +1,1 @@
-module.exports = isSupported = os => os && (os === "linux" || os === "darwin");
+module.exports = isSupported = (os) => os && (os === 'linux' || os === 'darwin')

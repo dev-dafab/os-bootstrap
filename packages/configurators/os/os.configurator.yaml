@@ -1,0 +1,9 @@
+Id: OS.Config
+Name: OsConfigurator
+Author: FDS
+Objects:
+  - type: list
+    name: OsConfigurator
+    message: Select Operating System
+    choices: [{ name: "OSX", value: "OSX" }, { name: "Linux", value: "Linux" }]
+

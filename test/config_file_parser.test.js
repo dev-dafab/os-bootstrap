@@ -1,17 +1,11 @@
-let expect = require("chai").expect;
+describe('Dotfiles config Parser', () => {
+    beforeEach(() => {})
 
-mockReturn = {};
+    it('should display', () => {})
 
-describe("Dotfiles config Parser", () => {
-  beforeEach(() => {});
-
-  it("should display", () => {});
-
-  it("should return", () => {
-    console.log("klasjdfkj");
-    console.log("klasjdfkj");
-    console.log("klasjdfkj");
-  });
-
-  it("should return");
-});
+    it('should return', () => {
+        console.log('klasjdfkj')
+        console.log('klasjdfkj')
+        console.log('klasjdfkj')
+    })
+})
