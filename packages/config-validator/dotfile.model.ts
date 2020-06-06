@@ -5,9 +5,12 @@ export class File {
   destinations: string[];
 }
 
-export class Dotfile {
-  name: string;
+export class DotfileSpec {
   os?: string[];
   @ValidateNested()
   files: File[];
+}
+
+export class Dotfile {
+  [key: string]: DotfileSpec;
 }

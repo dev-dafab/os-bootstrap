@@ -13,6 +13,7 @@ const content = readFileSync(resolve(__dirname, 'foo.yaml'), 'utf8'),
 const config: Config = plainToClass(Config, load(content));
 
 validate(config, validationOptions)
-.then(e => console.log(e));
+.then(e => console.log(e.entries));
 
-console.log(config);
+// console.log(config.dotfiles[0]['vim'][0]);
+console.log(JSON.stringify(config.dotfiles));

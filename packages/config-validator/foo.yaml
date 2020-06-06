@@ -1,46 +1,49 @@
+---
 core:
-os: OSX
-dotfiles_location: ~/.dotfiles
+  os: OSX
+  dotfiles_location: ~/.dotfiles
 
 dotfiles:
-- vim:
-  - src: vim
-    destination:
-      - ~/.config/nvim
-      - ~/.vim
-  - src: vim/vimrc.vim
-    destination:
-      - ~/.vimrc
+  - vim:
+      os: ["osx", "linux"]
+      files:
+        - source: vim
+          destination:
+            - ~/.config/nvim
+            - ~/.vim
+        - source: vim/vimrc.vim
+          destination:
+          - ~/.vimrc
 
-- git gitconfig:
-  - src: git/gitconfig
-    destination:
-      - ~/.gitconfig
+  - git gitconfig:
+      files:
+        - source: git/gitconfig
+          destination:
+          - ~/.gitconfig
 
-- git gitignore:
-  - src: git/gitignore_global
-    destination:
-      - ~/.gitignore_global
+  - git gitignore:
+      files:
+        - source: git/gitignore_global
+          destination:
+            - ~/.gitignore_global
 
-- zsh:
-  - src: zsh
-    destination:
-      - ~/.zsh
+  - zsh:
+      files:
+        - source: zsh
+          destination:
+            - ~/.zsh
 
-- fileWithoutSource:
-  - src: fileWithoutSource
+  - tmux:
+      files:
+        - source: tmux/tmux.tmux
+          destination:
+            - ~/.tmux.conf
 
-- wrongConfiguration:
-
-- tmux:
-  - src: tmux/tmux.tmux
-    destination:
-      - ~/.tmux.conf
-
-- fzf:
-  - src: fzf
-    destination:
-    - ~/.fzf
+  - fzf:
+      files:
+        - sources: fzf
+          destination:
+          - ~/.fzf
 
 dependencies:
 - git-core
