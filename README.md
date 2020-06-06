@@ -41,6 +41,10 @@ __TODO__
 # Config file format
 
 ```yml
+core:
+OS: OSX
+DotfilesLocation: ~/.dotfiles
+
 dotfiles installation:
 - vim:
   - src: vim

@@ -11,10 +11,13 @@
     "lint-js": "prettier --check '**/*.js'",
     "lint-fix": "prettier --write '**/*.js'",
     "pretest": "npm run lint-js",
-    "test": "jest",
+    "jest": "jest",
+    "test": "echo 'run test script in all packages' && lerna run test --stream",
     "web": "nodemon src/web",
     "cli": "nodemon src/cli",
-    "build": "echo todo"
+    "core": "nodemon src/core",
+    "build": "echo todo",
+    "publish-all": "lerna publish"
   },
   "workspaces": [
     "packages/*"
@@ -33,15 +36,17 @@
     "jest": "^26.0.1",
     "jsdoc": "^3.5.5",
     "prettier": "^2.0.5",
-    "proxyquire": "^1.8.0"
+    "proxyquire": "^1.8.0",
+    "yaml-schema-validator": "^1.2.2"
   },
   "dependencies": {
     "clear": "^0.1.0",
+    "command-exists": "^1.2.9",
     "commander": "^5.1.0",
     "express": "^4.16.4",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.10.0",
     "rxjs": "^6.5.3",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.4"
   }
 }

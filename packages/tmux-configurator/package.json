@@ -1,0 +1,13 @@
+{
+  "name": "tmux-configurator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5",
+    "yaml-schema-validator": "^1.2.2",
+    "inquirer": "^7.1.0"
+  }
+}
