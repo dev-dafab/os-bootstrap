@@ -4,18 +4,18 @@ import { validate, ValidatorOptions, ValidationError } from 'class-validator'
 
 import { Config } from './config.model'
 import { load } from 'js-yaml'
-import { readFileSync } from 'fs'
-import { resolve } from 'path'
 
-// const content = readFileSync(resolve(__dirname, 'foo.yaml'), 'utf8'),
-//      defaultValidationOptions: ValidatorOptions = {skipMissingProperties: false  };
 
-export const parseConfig = (
+export const parseConfig = async (
     content: string,
     validationOptions: ValidatorOptions = {}
-) => {
+): Promise<Config | string[]>  => {
     validationOptions = { ...validationOptions, skipMissingProperties: false }
-
     const config: Config = plainToClass(Config, load(content))
-    validate(config, validationOptions)
+    const errors: ValidationError[] = await validate(config, validationOptions);
+    if (errors.length === 0) {
+        return Promise.resolve(config);
+    }
+    console.log(errors.map(e => e.toString()));
+    return Promise.reject(errors.map(e => e.toString()));
 }
