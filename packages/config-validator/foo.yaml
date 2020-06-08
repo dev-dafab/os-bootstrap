@@ -2,6 +2,7 @@
 core:
   os: OSX
   dotfiles_location: ~/.dotfiles
+  installation_command: brew
 
 dotfiles:
   - vim:
@@ -46,41 +47,37 @@ dotfiles:
           - ~/.fzf
 
 dependencies:
-- git-core
-- git
-- curl
-- wget
-- ssh
-- sshfs
-- httpie
-- tree
-- stow
-- shellcheck
-- xclip:
-    os:
-      name: linux
-- pbcopy:
-    os:
-    - name: darwin
-      command: custom_install_command install pbcopy
-- tmux
-- tmuxinator
-- pure-prompt:
-    os:
-    - name: linux
-      command: npm install -g pure-prompt
-- java:
-    os:
-    - name: linux
-      command: apt-get install java
-    - name: darwin
-      command: brew install java
-- oracle:
-    os:
-    - name: linux
-      command: apt-get install oracle
-    - name: darwin
-      command: brew install oracle
-- postgresql
-- [mysql-client, mysql-server, mysql-common]
-- mongodb
+  simples:
+    - git-core
+    - git
+    - curl
+    - wget
+    - ssh
+    - sshfs
+    - httpie
+    - tree
+    - stow
+    - shellcheck
+    - postgresql
+    - [mysql-client, mysql-server, mysql-common]
+    - mongodb
+    - tmux
+    - tmuxinator
+
+  customs:
+    - xclip:
+    - pbcopy:
+        os:
+        - name: darwin
+          command: custom_install_command install pbcopy
+    - pure-prompt:
+        os:
+        - name: linux
+          command: npm install -g pure-prompt
+    - java:
+        os:
+        - name: linux
+          command: apt-get install java
+        - name: darwin
+          command: brew install java
+
