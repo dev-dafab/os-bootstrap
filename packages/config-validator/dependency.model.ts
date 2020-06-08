@@ -1,4 +1,4 @@
-import {ValidateNested} from "class-validator";
+import {ValidateNested, MinLength} from "class-validator";
 import {Type} from "class-transformer";
 import { IsSupportedOS, IsValidCommand } from "./validation.decorator";
 import { OS } from "./os.model";
@@ -21,6 +21,9 @@ export class CustomDependency {
 }
 
 export class Dependency  {
+
+  @ValidateNested()
+  @MinLength(1)
   simples?: string[] | string[][];
 
   @ValidateNested()

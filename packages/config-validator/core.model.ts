@@ -1,15 +1,16 @@
 import {
     IsSupportedOS,
     IsValidInstallationCommand,
-    IsValidDotfileLocation,
+    IsValidDotfileLocation
 } from './validation.decorator'
 import { OS } from './os.model'
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNotEmptyObject, IsDefined } from 'class-validator';
 import { InstallationCommand } from './install-command.model';
 
 export class Core {
     @IsSupportedOS()
-    @IsNotEmpty()
+    @IsNotEmptyObject()
+    @IsDefined()
     os: OS;
 
     @IsValidDotfileLocation()
@@ -17,6 +18,7 @@ export class Core {
     dotfiles_location: string;
 
     @IsValidInstallationCommand()
-    @IsNotEmpty()
+    @IsNotEmptyObject()
+    @IsDefined()
     installation_command: InstallationCommand;
 }

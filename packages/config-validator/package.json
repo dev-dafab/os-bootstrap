@@ -4,17 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "check": "gts check",
     "tsc": "tsc",
     "compile": "tsc",
     "lint:check": "npm run check",
     "lint:clean": "gts clean",
     "lint:fix": "gts fix",
-    "pretest": "npm run compile",
-    "posttest": "npm run check",
+    "posttest": "echo 'run check'",
     "start": "nodemon",
-    "debug-test": "node-ts node-ts --inspect-brk jest -i"
+    "debug-test": "node-ts --inspect-brk jest -i"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",

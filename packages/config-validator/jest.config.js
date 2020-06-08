@@ -12,6 +12,7 @@ module.exports = {
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
      "lcov",
+      "html"
   ],
 
   // An array of file extensions your modules use
