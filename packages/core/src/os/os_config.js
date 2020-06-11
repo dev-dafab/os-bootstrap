@@ -1,5 +1,6 @@
 const os = require('os')
 const fs = require('fs')
+const shelljs = require('shelljs')
 
 function getOsInstallCommand() {
     if (os.platform() === 'darwin') {
@@ -28,19 +29,10 @@ function getAvailableShells() {
     return shells
 }
 
-function has_shell(arg) {
-    if (!shells) {
-        throw new Error('No Shells')
-    }
-
-    return shells.indexOf(args) !== -1
-}
-
 module.exports = {
     homedir: os.homedir(),
     platform: os.platform(),
     backup_dir: getBackupDir(),
     shells: getAvailableShells(),
-    has_shell: has_shell(getAvailableShells()),
     install_command: getOsInstallCommand(),
 }

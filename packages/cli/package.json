@@ -1,0 +1,19 @@
+{
+  "name": "@os-bootstrap/cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "tsc": "tsc",
+    "compile": "tsc",
+    "start": "nodemon",
+    "debug-test": "node-ts --inspect-brk jest -i"
+  },
+  "dependencies": {
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "inquirer": "^7.1.0",
+    "rxjs": "^6.5.5"
+  }
+}

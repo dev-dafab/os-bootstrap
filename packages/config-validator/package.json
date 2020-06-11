@@ -1,5 +1,5 @@
 {
-  "name": "config-validator",
+  "name": "@os-bootstrap/config-validator",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

@@ -1,0 +1,13 @@
+{
+  "name": "@os-bootstrap/core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "commander": "^5.1.0",
+    "shelljs": "^0.8.4"
+  }
+}

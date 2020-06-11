@@ -1,5 +1,5 @@
 {
-  "name": "@os-bootstrap/shell",
+  "name": "@os-bootstrap/dotfiles-configurator",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

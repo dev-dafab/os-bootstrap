@@ -1,12 +1,12 @@
-Id: Dotfiles.Config
-Name: DotfilesConfigurator
-Author: FDS
-Objects:
+id: Dotfiles.Config
+name: DotfilesConfigurator
+author: FDS
+objects:
   - type: confirm
-    name: WithDotfiles
+    name: withDotfiles
     message: Do you like to install dotfiles?
   - type: input
-    name: DotfilesLocation
-    when: !!js/function function(answer) {return answer.WithDotfiles}
+    name: dotfilesLocation
+    when: !!js/function function(answer) {return answer.withDotfiles}
     message: Please provide your dotfiles location (or github)
 

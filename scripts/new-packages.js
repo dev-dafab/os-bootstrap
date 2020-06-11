@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 const { program } = require('commander');
 const {test, mkdir, touch, exec} = require('shelljs');
 const {resolve} = require('path');
-var fs = require('fs');
+const fs = require('fs');
 
 const test_string = `
 test('adds 1 + 2 to equal 3', () => {
@@ -61,7 +62,7 @@ module.exports = {
 
 const package_string = `
 {
-  "name": "${name}-${type}",
+  "name": "@os-bootstrap/${name}-${type}",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -99,5 +100,7 @@ if (!test('-d', path)) {
 
     exec(`cd ${path} && yarn init -y`)
     exec(`cd ${path} && yarn add jest jsdoc prettier yaml-schema-validator inquirer -D`)
+
+    exec(`cd ${path} && yarn init -y`)
 }
 

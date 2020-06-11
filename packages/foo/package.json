@@ -1,0 +1,32 @@
+{
+  "name": "foo",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "homepage": "https://github.com/fab-du/os-bootstrap/tree/master/packages/foo#readme",
+  "license": "ISC",
+  "main": "lib/foo.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-dafab/os-bootstrap.git"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
