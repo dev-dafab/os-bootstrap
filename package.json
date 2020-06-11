@@ -19,7 +19,8 @@
     "lint-fix": "prettier --write 'packages/**/*.{js, ts}'",
     "pretest": "npm run lint",
     "test": "echo 'run test script in all packages' && lerna run test --concurrency=1 --stream",
-    "publish-all": "lerna publish"
+    "publish-all": "lerna publish",
+    "ci": "echo CI"
   },
   "workspaces": [
     "packages/*"
