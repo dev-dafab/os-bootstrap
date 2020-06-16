@@ -57,5 +57,6 @@
     "class-validator": "^0.12.2",
     "node-ts": "^5.0.6",
     "reflect-metadata": "^0.1.13"
-  }
+  },
+  "gitHead": "b889a1c7a7671312351227efb2d05b8bce6d40dc"
 }

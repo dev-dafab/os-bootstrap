@@ -28,5 +28,6 @@
     "test": "jest",
     "build": "echo build",
     "start": "nodemon"
-  }
+  },
+  "gitHead": "b889a1c7a7671312351227efb2d05b8bce6d40dc"
 }
