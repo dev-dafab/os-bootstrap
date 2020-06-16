@@ -1,13 +1,32 @@
 {
   "name": "@os-bootstrap/core",
   "version": "1.0.0",
+  "description": "@os-bootstrap/core",
   "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "test": "jest"
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
   },
-  "dependencies": {
-    "commander": "^5.1.0",
-    "shelljs": "^0.8.4"
+  "files": [
+    "src"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
+  "scripts": {
+    "test": "jest",
+    "build": "echo build",
+    "start": "nodemon"
   }
 }

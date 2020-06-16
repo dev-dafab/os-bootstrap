@@ -1,9 +1,33 @@
 {
   "name": "@os-bootstrap/dotfiles-configurator",
   "version": "1.0.0",
+  "description": "@os-bootstrap/dotfiles-configurator",
   "main": "index.js",
-  "license": "MIT",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
+  "os-bootstrap-specification-file": "dotfiles.configurator.yaml",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "gulp build",
+    "start": "nodemon"
   }
 }

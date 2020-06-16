@@ -1,16 +1,36 @@
 {
-  "name": "@os-bootstrap/cli",
+  "name": "cli",
   "version": "1.0.0",
+  "description": "@os-bootstrap/cli",
   "main": "index.js",
-  "license": "MIT",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
   "scripts": {
     "test": "jest",
-    "tsc": "tsc",
-    "compile": "tsc",
-    "start": "nodemon",
-    "debug-test": "node-ts --inspect-brk jest -i"
+    "build": "echo build",
+    "start": "nodemon"
   },
   "dependencies": {
+    "@os-bootstrap/dotfiles-configurator": "^1.0.0",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "inquirer": "^7.1.0",
