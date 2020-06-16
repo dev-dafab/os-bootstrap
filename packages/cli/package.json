@@ -1,6 +1,6 @@
 {
   "name": "cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "@os-bootstrap/cli",
   "main": "index.js",
   "directories": {
@@ -30,7 +30,7 @@
     "start": "nodemon"
   },
   "dependencies": {
-    "@os-bootstrap/dotfiles-configurator": "^1.0.1",
+    "@os-bootstrap/dotfiles-configurator": "^1.0.2",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "inquirer": "^7.1.0",
