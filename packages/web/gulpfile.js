@@ -36,15 +36,17 @@ function yamlTask() {
 function prependSpecTask() {
     return src('build/index.js')
         .pipe(
-            gap.appendText(`module.exports.specification = require("./${path.parse(specification_file).name}.json")`)
+            gap.appendText(
+                `module.exports.specification = require("./${
+                    path.parse(specification_file).name
+                }.json")`
+            )
         )
         .pipe(dest(paths.build))
 }
 
 function copyTask() {
-    return src(['./package.json']).pipe(
-        dest(paths.build)
-    )
+    return src(['./package.json']).pipe(dest(paths.build))
 }
 
 function prebublish() {
