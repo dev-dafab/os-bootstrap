@@ -23,18 +23,25 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "bin": {
+    "os-bootstrap": "./index.js"
+  },
   "private": false,
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watchAll  --testPathPattern ./__tests__/*.test.js --coverage=true",
     "build": "echo build",
     "start": "nodemon"
   },
   "dependencies": {
-    "@os-bootstrap/dotfiles-configurator": "^1.0.3",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "inquirer": "^7.1.0",
     "rxjs": "^6.5.5"
   },
-  "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99"
+  "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99",
+  "devDependencies": {
+    "configstore": "^5.0.1",
+    "shelljs": "^0.8.4"
+  }
 }

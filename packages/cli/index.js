@@ -1,8 +1,37 @@
+#!/usr/bin/env node
+
 const { program } = require('commander')
+const help_message = require('./help.message')
+const { version } = require('./package')
+
+program.version(version)
 
 program
-    .option('-d, --debug', 'output extra debugging')
-    .option('-s, --small', 'small pizza size')
-    .option('-p, --pizza-type <type>', 'flavour of pizza')
+    .command('wizard')
+    .option('-c, --config-file [configfile]', 'yaml specification file')
+    .option('-l, --dotfile-location <dotfile_location>', 'dotfile location')
+    .option('-xdg, --xdg', 'use XDG config')
+    .action((options) => {
+        console.log(options.configFile)
+        console.log(options.dotfileLocation)
+        console.log(options.xdg)
+    })
 
-program.parse(process.argv)
+program
+    .command('get-script')
+    .option('-c, --config-file <config_file>', 'yaml specification file')
+    .option('-xdg, --xdg', 'use XDG config')
+    .action((options) => {
+        console.log(options.configFile)
+        console.log(options.xdg)
+    })
+
+program.on('--help', () => {
+    console.log(help_message)
+})
+
+try {
+    program.parse(process.argv)
+} catch (err) {
+    console.log('An error occur')
+}
