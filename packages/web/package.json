@@ -29,5 +29,5 @@
     "build": "echo build",
     "start": "nodemon"
   },
-  "gitHead": "3c0db6035fc6bbb1eb710249f7a514929d06b444"
+  "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99"
 }
