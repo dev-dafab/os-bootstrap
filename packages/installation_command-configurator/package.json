@@ -1,6 +1,6 @@
 {
   "name": "@os-bootstrap/installation_command-configurator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@os-bootstrap/installation_command-configurator",
   "main": "index.js",
   "directories": {

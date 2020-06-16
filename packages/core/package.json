@@ -1,6 +1,6 @@
 {
   "name": "@os-bootstrap/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@os-bootstrap/core",
   "main": "index.js",
   "directories": {

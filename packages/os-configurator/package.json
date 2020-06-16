@@ -1,6 +1,6 @@
 {
   "name": "@os-bootstrap/os-configurator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@os-bootstrap/os-configurator",
   "main": "index.js",
   "directories": {

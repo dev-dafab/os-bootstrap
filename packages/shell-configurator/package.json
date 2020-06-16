@@ -1,6 +1,6 @@
 {
   "name": "@os-bootstrap/shell-configurator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@os-bootstrap/shell-configurator",
   "main": "index.js",
   "directories": {

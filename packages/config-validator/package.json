@@ -1,6 +1,6 @@
 {
   "name": "@os-bootstrap/config-validator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@os-bootstrap/config-validator",
   "main": "index.ts",
   "directories": {
