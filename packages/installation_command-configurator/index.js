@@ -1,1 +1,5 @@
-// TODO: implement installation command logic
+
+module.exports = function (installation_command) {
+    return installation_command;
+}
+

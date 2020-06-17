@@ -10,3 +10,9 @@ module.exports = function (answers) {
         ? parse(answers.dotfilesLocation)
         : undefined
 }
+
+module.exports.when = {
+    'core.dotfiles_location': function (answer) {
+        return answer.withDotfiles === true
+    },
+}

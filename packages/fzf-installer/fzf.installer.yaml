@@ -1,7 +1,7 @@
 Id: FZF.Installer
 Name: FzfInstaller
 Author: FDS
-Objects:
+objects:
   - type: confirm
     name: WithFZF
     message: "Do you like to install FZF?"

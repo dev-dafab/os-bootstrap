@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-const { program } = require('commander')
-const help_message = require('./help.message')
-const { version } = require('./package')
+const { program } = require('commander'),
+    help_message = require('./help.message'),
+    { version } = require('./package'),
+    wizard = require('./src/wizard');
 
 program.version(version)
 
@@ -15,6 +16,7 @@ program
         console.log(options.configFile)
         console.log(options.dotfileLocation)
         console.log(options.xdg)
+        wizard(options);
     })
 
 program

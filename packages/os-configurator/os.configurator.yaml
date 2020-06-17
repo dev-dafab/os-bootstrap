@@ -1,9 +1,9 @@
 Id: OS.Config
 Name: OsConfigurator
 Author: FDS
-Objects:
+objects:
   - type: list
-    name: OsConfigurator
+    name: 'core.os'
     message: Select Operating System
     choices: [{ name: "OSX", value: "OSX" }, { name: "Linux", value: "Linux" }]
 
