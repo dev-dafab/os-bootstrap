@@ -21,6 +21,7 @@
     "pretest": "npm run lint",
     "test": "echo 'run test script in all packages' && lerna run test --concurrency=1 --stream",
     "publish-all": "lerna publish",
+    "dev:cp-gulpfile": "node scripts/cp-file-to-all-package.js --input=gulpfile.base.js --output=gulpfile.js --ignore=web,cli",
     "ci": "echo CI"
   },
   "workspaces": [
