@@ -5,7 +5,7 @@ function start_wizard() {
     let wizard_items = [
         require('@os-bootstrap/os-configurator'),
         require('@os-bootstrap/dotfiles-configurator'),
-        require('@os-bootstrap/installation_command-configurator')
+        require('@os-bootstrap/installation_command-configurator'),
     ]
 
     let whens = wizard_items.reduce((acc, item) => {

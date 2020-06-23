@@ -3,7 +3,7 @@
 const { program } = require('commander'),
     help_message = require('./help.message'),
     { version } = require('../package'),
-    wizard = require('./wizard');
+    wizard = require('./wizard')
 
 program.version(version)
 
@@ -16,7 +16,7 @@ program
         console.log(options.configFile)
         console.log(options.dotfileLocation)
         console.log(options.xdg)
-        wizard(options);
+        wizard(options)
     })
 
 program
