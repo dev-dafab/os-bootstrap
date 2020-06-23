@@ -1,8 +1,9 @@
 const { src, dest, series } = require('gulp'),
     concat = require('gulp-concat'),
     gap = require('gulp-append-prepend'),
-    yaml = require('gulp-yaml'),
+    js_yaml = require('js-yaml'),
     zip = require('gulp-zip'),
+    fs = require('fs'),
     del = require('del'),
     path = require('path'),
     pack = require('./package.json'),
@@ -27,10 +28,13 @@ function concatTask() {
         .pipe(dest('./build/'))
 }
 
-function yamlTask() {
-    return src(specification_file)
-        .pipe(yaml({ schema: 'DEFAULT_FULL_SCHEMA' }))
-        .pipe(dest(paths.build))
+function yamlTask(cb) {
+    const content = js_yaml.load(fs.readFileSync(specification_file))
+    fs.writeFileSync(
+        `./build/${path.parse(specification_file).name}.json`,
+        JSON.stringify(content, null, ' ')
+    )
+    return cb()
 }
 
 function prependSpecTask() {
