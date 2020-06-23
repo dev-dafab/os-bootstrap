@@ -1,38 +1,39 @@
-const path = require('path')
-const fs = require('fs')
-const { URL } = require('url')
+#!/usr/bin/env node
 
-const xdg_config_path = '~/.config/configstore/os-bootstrap.json'
+const { program } = require('commander'),
+    help_message = require('./help.message'),
+    { version } = require('../package'),
+    wizard = require('./wizard');
 
-function path_exists(path) {
-    return fs.existsSync(path)
-}
+program.version(version)
 
-function is_url(url) {
-    try {
-        new URL(url)
-    } catch (e) {
-        return false
-    }
-}
+program
+    .command('wizard')
+    .option('-c, --config-file [configfile]', 'yaml specification file')
+    .option('-l, --dotfile-location <dotfile_location>', 'dotfile location')
+    .option('-xdg, --xdg', 'use XDG config')
+    .action((options) => {
+        console.log(options.configFile)
+        console.log(options.dotfileLocation)
+        console.log(options.xdg)
+        wizard(options);
+    })
 
-module.exports = function (options) {
-    const configFile = xdg_config_path
-    if (!option.xdg) {
-        configFile =
-            options.configFile && path_exists(options.configFile)
-                ? options.configFile
-                : xdg_config_path
-    }
-    const dotfileLocation =
-        options.dotfileLocation &&
-        path_exists(options.dotfileLocation) &&
-        is_url(options.dotfileLocation)
-            ? options.dotfileLocation
-            : null
+program
+    .command('get-script')
+    .option('-c, --config-file <config_file>', 'yaml specification file')
+    .option('-xdg, --xdg', 'use XDG config')
+    .action((options) => {
+        console.log(options.configFile)
+        console.log(options.xdg)
+    })
 
-    return {
-        configFile,
-        dotfileLocation,
-    }
+program.on('--help', () => {
+    console.log(help_message)
+})
+
+try {
+    program.parse(process.argv)
+} catch (err) {
+    console.log('An error occur')
 }

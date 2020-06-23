@@ -4,11 +4,12 @@
   "description": "@os-bootstrap/cli",
   "main": "index.js",
   "directories": {
-    "src": "src",
-    "test": "__tests__"
+    "src": "src"
   },
   "files": [
-    "src"
+    "!.",
+    "index.js",
+    "help.message.js"
   ],
   "license": "ISC",
   "repository": {
@@ -24,13 +25,20 @@
     "registry": "https://npm.pkg.github.com"
   },
   "bin": {
-    "os-bootstrap": "./index.js"
+    "os-bootstrap": "./build/osb-cli.js"
   },
   "private": false,
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll  --testPathPattern ./__tests__/*.test.js --coverage=true",
-    "build": "echo build",
+    "prebuild": "rimraf build",
+    "build": "babel src --out-dir build/src --copy-files",
+    "postbuild": "scripts/cp package.json build/",
+    "pkg:win": "pkg build/src/index.js --targets win --output build/win/osb",
+    "pkg:mac": "pkg build/src/index.js --targets macos --output build/mac/osb",
+    "pkg:linux": "pkg build/src/index.js --targets linux --output build/linux/osb",
+    "prepublish": "npm run pkg:win;npm run pkg:mac;npm run pkg:linux",
+    "test:cli": "echo todo",
     "start": "nodemon"
   },
   "dependencies": {
@@ -44,7 +52,12 @@
   },
   "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99",
   "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "commander": "^5.1.0",
     "configstore": "^5.0.1",
+    "pkg": "^4.4.8",
+    "rimraf": "^3.0.2",
     "shelljs": "^0.8.4"
   }
 }

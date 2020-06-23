@@ -2,13 +2,13 @@
   "name": "@os-bootstrap/tmux-configurator",
   "version": "1.0.3",
   "description": "@os-bootstrap/tmux-configurator",
-  "main": "index.js",
+  "main": "build/index.js",
   "directories": {
-    "src": "src",
-    "test": "__tests__"
+    "build": "build"
   },
   "files": [
-    "src"
+    "!.",
+    "build"
   ],
   "license": "ISC",
   "repository": {
