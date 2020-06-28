@@ -22,7 +22,7 @@ function searchDependency(oldAnswers, input) {
     input = input || ''
     return new Promise(function (resolve) {
         setTimeout(function () {
-            console.log(data);
+            console.log(data)
             resolve(data)
         }, 500)
     })

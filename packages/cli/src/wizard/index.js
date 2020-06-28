@@ -37,5 +37,4 @@ module.exports = function (options) {
     }
 }
 
-module.exports = require('./wizard');
-
+module.exports = require('./wizard')

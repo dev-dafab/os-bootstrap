@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
-inquirer.registerPrompt('recursive', require('inquirer-recursive'));
-inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+inquirer.registerPrompt('recursive', require('inquirer-recursive'))
+inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 const clear = require('clear')
 
 function get_wizard_function(function_name, wizard_items) {
@@ -81,7 +81,7 @@ function start_wizard(options) {
         .map((item) => {
             // append transformer function to questions
             if (item.name in prompts) {
-                item['prompts'] = prompts[item.name]();
+                item['prompts'] = prompts[item.name]()
             }
             return item
         })

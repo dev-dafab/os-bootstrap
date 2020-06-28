@@ -19,8 +19,7 @@ module.exports.when = {
 
 module.exports.filter = {
     'core.dotfiles_location': function (answer) {
-        delete answer.withDotfiles;
-        return answer;
+        delete answer.withDotfiles
+        return answer
     },
 }
-
