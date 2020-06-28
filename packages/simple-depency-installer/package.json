@@ -1,0 +1,33 @@
+{
+  "name": "@os-bootstrap/simple-dependency-installer",
+  "version": "1.0.3",
+  "description": "@os-bootstrap/simple-dependency-installer",
+  "main": "build/index.js",
+  "directories": {
+    "build": "build"
+  },
+  "files": [
+    "!.",
+    "build"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
+  "os-bootstrap-specification-file": "simple-dependency.installer.yaml",
+  "scripts": {
+    "test": "jest",
+    "build": "gulp build",
+    "start": "nodemon"
+  }
+}

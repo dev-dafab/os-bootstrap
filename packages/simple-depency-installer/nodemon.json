@@ -1,0 +1,6 @@
+{
+  "watch": ["."],
+  "ext": "js,yaml",
+  "ignore": ["src/**/*.spec.js", "build"],
+  "exec": "yarn build"
+}

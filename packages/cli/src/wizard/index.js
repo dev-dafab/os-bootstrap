@@ -18,7 +18,7 @@ function is_url(url) {
 
 module.exports = function (options) {
     const configFile = xdg_config_path
-    if (!option.xdg) {
+    if (!options.xdg) {
         configFile =
             options.configFile && path_exists(options.configFile)
                 ? options.configFile
@@ -36,3 +36,6 @@ module.exports = function (options) {
         dotfileLocation,
     }
 }
+
+module.exports = require('./wizard');
+

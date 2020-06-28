@@ -1,0 +1,25 @@
+id: simple-depency.installer
+name: simple-depencyinstaller
+author: fds
+objects:
+  - type: checkbox
+    name: 'dependency.simple'
+    message: 'enter simple dependency'
+    choices: [
+    'tree',
+    'openssh',
+    'sshfs',
+    'sshfs',
+    'ssh-tools',
+    'ssh-import-id',
+    'tmux',
+    'tmuxinator',
+    'tmate',
+    'nginx',
+    'sqlite3',
+    'nmap',
+    'cargo',
+    'assume-yes',
+    'rofi',
+    'ripgrep',
+    'urlview']

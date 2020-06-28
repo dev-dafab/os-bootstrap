@@ -16,3 +16,11 @@ module.exports.when = {
         return answer.withDotfiles === true
     },
 }
+
+module.exports.filter = {
+    'core.dotfiles_location': function (answer) {
+        delete answer.withDotfiles;
+        return answer;
+    },
+}
+

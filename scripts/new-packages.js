@@ -25,7 +25,7 @@ const yaml_string = `
 id: ${name}.${type}
 name: ${name}${type}
 author:
-Objects:
+objects:
 `;
 
 const jest_config = `
@@ -63,23 +63,36 @@ module.exports = {
 const package_string = `
 {
   "name": "@os-bootstrap/${name}-${type}",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "lint-js": "prettier --check '**/*.js'",
-    "lint-yaml": "echo lint-yaml",
-    "lint-fix": "prettier --write '**/*.js' && echo lint-yaml-fix",
-    "pretest": "npm run lint-js && npm run lint-yaml",
-    "test": "jest"
+  "version": "1.0.3",
+  "description": "@os-bootstrap/${name}-${type}",
+  "main": "build/index.js",
+  "directories": {
+    "build": "build"
   },
-  "devDependencies": {
-    "jest": "^26.0.1",
-    "jsdoc": "^3.6.4",
-    "prettier": "^2.0.5",
-    "yaml-schema-validator": "^1.2.2",
-    "inquirer": "^7.1.0"
-  }
+  "files": [
+    "!.",
+    "build"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
+  "os-bootstrap-specification-file": "${name}.${type}.yaml",
+  "scripts": {
+    "test": "jest",
+    "build": "gulp build",
+    "start": "nodemon"
+  },
 }
 `;
 

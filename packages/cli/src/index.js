@@ -16,6 +16,7 @@ program
         console.log(options.configFile)
         console.log(options.dotfileLocation)
         console.log(options.xdg)
+        console.log(wizard);
         wizard(options)
     })
 
@@ -35,5 +36,6 @@ program.on('--help', () => {
 try {
     program.parse(process.argv)
 } catch (err) {
+    console.err(err);
     console.log('An error occur')
 }

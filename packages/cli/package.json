@@ -45,6 +45,7 @@
     "@os-bootstrap/dotfiles-configurator": "^1.0.3",
     "@os-bootstrap/installation_command-configurator": "^1.0.3",
     "@os-bootstrap/os-configurator": "^1.0.3",
+    "@os-bootstrap/simple-dependency-installer": "^1.0.3",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "inquirer": "^7.1.0",
