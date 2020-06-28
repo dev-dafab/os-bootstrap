@@ -1,0 +1,7 @@
+export { validate } from './validate'
+export { Config } from './models/config.model'
+export { Core } from './models/core.model'
+export { Dependency } from './models/dependency.model'
+export { Dotfile, DotfileSpec } from './models/dotfile.model'
+export { InstallationCommand } from './models/install-command.model'
+export { OS } from './models/os.model'

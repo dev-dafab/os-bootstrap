@@ -1,5 +1,5 @@
 const shelljs = require('shelljs')
-const help_message = require('../help.message')
+const help_message = require('../src/help.message')
 
 describe('CLI Options test', function () {
     beforeAll(() => {

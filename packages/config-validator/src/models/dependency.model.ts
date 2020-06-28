@@ -1,6 +1,6 @@
 import {ValidateNested, MinLength} from "class-validator";
 import {Type} from "class-transformer";
-import { IsSupportedOS, IsValidCommand } from "./validation.decorator";
+import { IsSupportedOS, IsValidCommand } from "../validation.decorator";
 import { OS } from "./os.model";
 
 export class InstallationSpec {

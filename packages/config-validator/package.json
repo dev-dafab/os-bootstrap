@@ -2,13 +2,13 @@
   "name": "@os-bootstrap/config-validator",
   "version": "1.0.3",
   "description": "@os-bootstrap/config-validator",
-  "main": "index.ts",
+  "main": "build/index.js",
   "directories": {
-    "src": "src",
-    "test": "__tests__"
+    "build": "build"
   },
   "files": [
-    "src"
+    "!.",
+    "build"
   ],
   "license": "ISC",
   "repository": {
@@ -25,11 +25,13 @@
   },
   "private": false,
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --watchAll --testPathPattern=__tests__",
     "check": "gts check",
     "tsc": "tsc",
     "compile": "tsc",
-    "build": "echo build",
+    "prebuild": "rimraf build",
+    "build": "tsc",
+    "postbuild": "cp package.json build/",
     "lint:check": "npm run check",
     "lint:clean": "gts clean",
     "lint:fix": "gts fix",

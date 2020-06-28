@@ -1,6 +1,4 @@
 const inquirer = require('inquirer')
-inquirer.registerPrompt('recursive', require('inquirer-recursive'))
-inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 const clear = require('clear')
 
 function get_wizard_function(function_name, wizard_items) {
@@ -87,13 +85,12 @@ function start_wizard(options) {
         })
 
     clear()
-    inquirer.prompt(questions).then((answers) => {
+    return inquirer.prompt(questions).then((answers) => {
         clear({ fullClear: false })
-        console.log()
-        console.log(JSON.stringify(removeIntermediateResponse(answers)))
+        return answers
     })
 }
 
 module.exports = function wizard(options) {
-    start_wizard(options)
+    return start_wizard(options)
 }

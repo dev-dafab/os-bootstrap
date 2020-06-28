@@ -1,8 +1,9 @@
-const path = require('path')
-const fs = require('fs')
-const { URL } = require('url')
-
-const xdg_config_path = '~/.config/configstore/os-bootstrap.json'
+const path = require('path'),
+    fs = require('fs'),
+    { URL } = require('url'),
+    { validate } = require('@os-bootstrap/config-validator'),
+    { write, read } = require('./config-file'),
+    xdg_config_path = '~/.config/configstore/os-bootstrap.json'
 
 function path_exists(path) {
     return fs.existsSync(path)
@@ -16,8 +17,8 @@ function is_url(url) {
     }
 }
 
-module.exports = function (options) {
-    const configFile = xdg_config_path
+function parseOptions(options) {
+    let configFile = xdg_config_path
     if (!options.xdg) {
         configFile =
             options.configFile && path_exists(options.configFile)
@@ -37,4 +38,16 @@ module.exports = function (options) {
     }
 }
 
-module.exports = require('./wizard')
+module.exports = function (options) {
+    const opts = parseOptions(options)
+    console.log(opts)
+    require('./wizard')()
+        .then((answers) => {
+            validate(answers)
+            return answers
+        })
+        .then((e) => {
+            console.log('run hier already')
+            return write(opts.configFile, e)
+        })
+}

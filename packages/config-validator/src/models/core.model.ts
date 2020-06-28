@@ -2,7 +2,7 @@ import {
     IsSupportedOS,
     IsValidInstallationCommand,
     IsValidDotfileLocation
-} from './validation.decorator'
+} from '../validation.decorator'
 import { OS } from './os.model'
 import { IsNotEmpty, IsNotEmptyObject, IsDefined } from 'class-validator';
 import { InstallationCommand } from './install-command.model';

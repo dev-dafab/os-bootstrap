@@ -14,7 +14,7 @@ import {
     IsSupportedOS,
     IsValidDotfileLocation,
     IsValidInstallationCommand,
-} from '../validation.decorator'
+} from '../src/validation.decorator'
 
 
 test('IsValidCommand', async () => {

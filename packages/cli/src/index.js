@@ -36,6 +36,6 @@ program.on('--help', () => {
 try {
     program.parse(process.argv)
 } catch (err) {
-    console.err(err)
+    console.log(err)
     console.log('An error occur')
 }

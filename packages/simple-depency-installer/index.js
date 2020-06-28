@@ -35,6 +35,7 @@ const promptType = {
     source: searchDependency,
 }
 
+/*
 module.exports.prompts = {
     'dependency.simple': function () {
         const _data = data.map((e) => {
@@ -43,3 +44,4 @@ module.exports.prompts = {
         return _data
     },
 }
+*/

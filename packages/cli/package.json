@@ -38,10 +38,12 @@
     "pkg:mac": "pkg build/src/index.js --targets macos --output build/mac/osb",
     "pkg:linux": "pkg build/src/index.js --targets linux --output build/linux/osb",
     "prepublish": "npm run pkg:win;npm run pkg:mac;npm run pkg:linux",
-    "test:cli": "echo todo",
+    "test:wizard": "node src/index.js wizard",
+    "test:wizard-with-config-file": "node src/index.js wizard --config-file documentation/sample-config.yaml",
     "start": "nodemon"
   },
   "dependencies": {
+    "@os-bootstrap/config-validator": "^1.0.3",
     "@os-bootstrap/dotfiles-configurator": "^1.0.3",
     "@os-bootstrap/installation_command-configurator": "^1.0.3",
     "@os-bootstrap/os-configurator": "^1.0.3",
