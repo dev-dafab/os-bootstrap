@@ -3,7 +3,8 @@
 const { program } = require('commander'),
     help_message = require('./help.message'),
     { version } = require('../package'),
-    wizard = require('./wizard')
+    wizard = require('./wizard'),
+    get_script = require('./get-script')
 
 program.version(version)
 
@@ -13,10 +14,6 @@ program
     .option('-l, --dotfile-location <dotfile_location>', 'dotfile location')
     .option('-xdg, --xdg', 'use XDG config')
     .action((options) => {
-        console.log(options.configFile)
-        console.log(options.dotfileLocation)
-        console.log(options.xdg)
-        console.log(wizard)
         wizard(options)
     })
 
@@ -25,8 +22,7 @@ program
     .option('-c, --config-file <config_file>', 'yaml specification file')
     .option('-xdg, --xdg', 'use XDG config')
     .action((options) => {
-        console.log(options.configFile)
-        console.log(options.xdg)
+        get_script(options)
     })
 
 program.on('--help', () => {

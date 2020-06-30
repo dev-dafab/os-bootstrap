@@ -1,11 +1,29 @@
 core:
-  os: OSX
+  os: darwin
   dotfiles_location: ~/.dotfiles
   installation_command: brew
 
 dotfiles:
+  - osx:
+      os: "darwin"
+      files:
+        - source: osx/osx
+          destination: ~/.osx
+
+  - xinitrc:
+      os: "linux"
+      files:
+        - source: xresources/xinitrc.sh
+          destination: ~/.xinitrc
+
+  - xresources:
+      os: "linux"
+      files:
+        - source: xresources/xresources
+          destination: ~/.Xresources
+
   - vim:
-      os: ["osx", "linux"]
+      os: ["linux", "darwin"]
       files:
         - source: vim
           destination:
@@ -64,18 +82,18 @@ dependencies:
     - tmuxinator
 
   customs:
-    - xclip:
-    - pbcopy:
-        os:
-        - name: darwin
-          command: custom_install_command install pbcopy
-    - pure-prompt:
-        os:
-        - name: linux
-          command: npm install -g pure-prompt
-    - java:
-        os:
-        - name: linux
-          command: apt-get install java
-        - name: darwin
-          command: brew install java
+  - xclip
+  - pbcopy:
+      os:
+      - name: darwin
+        command: custom_install_command install pbcopy
+  - pure-prompt:
+      os:
+      - name: linux
+        command: npm install -g pure-prompt
+  - java:
+      os:
+      - name: linux
+        command: apt-get install java
+      - name: darwin
+        command: brew install java

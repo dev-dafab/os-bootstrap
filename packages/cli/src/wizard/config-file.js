@@ -31,7 +31,7 @@ module.exports.read = function read(location) {
         return new Configstore(packageJson.name).all
     }
     try {
-        return yaml.safeLoad(fs.readFileSync('~/os-bootstrap.yaml', 'utf8'))
+        return yaml.safeLoad(fs.readFileSync(location, 'utf8'))
     } catch (e) {
         console.log(e)
     }
