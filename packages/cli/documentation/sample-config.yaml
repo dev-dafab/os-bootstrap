@@ -59,7 +59,7 @@ dotfiles:
 
   - fzf:
       files:
-        - sources: fzf
+        - source: fzf
           destination:
           - ~/.fzf
 

@@ -9,5 +9,5 @@ module.exports = function (options) {
     return validate(data).then((_data) => {
         const script = generate_bash_script(data)
         return script;
-    })
+}).catch(err => console.log(err))
 }
