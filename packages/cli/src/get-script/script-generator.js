@@ -1,46 +1,46 @@
 const path = require('path')
 
-// A; B    # Run A and then B, regardless of success of A
-// A && B  # Run B if and only if A succeeded
-// A || B  # Run B if and only if A failed
-// A &     # Run A in background.
-//
-// Command for running scripts in paralell
-// - parallel       -- GNU based
+    // A; B    # Run A and then B, regardless of success of A
+    // A && B  # Run B if and only if A succeeded
+    // A || B  # Run B if and only if A failed
+    // A &     # Run A in background.
+    //
+    // Command for running scripts in paralell
+    // - parallel       -- GNU based
 
-function custom_dependency_parser(
-    package,
-    installation_command,
-    os,
-    cb_for_simple_package_array
-) {
-    if (Array.isArray(package)) {
-        return cb_for_simple_package_array(package, installation_command)
-    } else {
-        const el = package[Object.keys(package).pop()].os
-            .filter((_package) => _package.name === os)
-            .pop()
-        if (typeof el !== 'undefined' && 'command' in el) {
-            return el.command
+    function custom_dependency_parser(
+        pack,
+        installation_command,
+        os,
+        cb_for_simple_pack_array
+    ) {
+        if (Array.isArray(pack)) {
+            return cb_for_simple_pack_array(pack, installation_command)
+        } else {
+            const el = pack[Object.keys(pack).pop()].os
+                .filter((_pack) => _pack.name === os)
+                .pop()
+            if (typeof el !== 'undefined' && 'command' in el) {
+                return el.command
+            }
+            return undefined
         }
-        return undefined
     }
-}
 
 const processors = {
     simples: function (dependencies, installation_command, os) {
-        return dependencies.flat(10).map((package) => {
-            return `sudo ${installation_command} install ${package}`
+        return dependencies.flat(10).map((pack) => {
+            return `sudo ${installation_command} install ${pack}`
         })
     },
     customs: function (dependencies, installation_command, os) {
-        return dependencies.map((package) => {
-            const type_of_package = typeof package
-            if (type_of_package === 'string') {
-                return `sudo ${installation_command} install ${package}`
-            } else if (type_of_package === 'object') {
+        return dependencies.map((pack) => {
+            const type_of_pack = typeof pack
+            if (type_of_pack === 'string') {
+                return `sudo ${installation_command} install ${pack}`
+            } else if (type_of_pack === 'object') {
                 return custom_dependency_parser(
-                    package,
+                    pack,
                     installation_command,
                     os,
                     processors.simples
@@ -52,7 +52,7 @@ const processors = {
     },
 }
 
-function process_package_installation(data, type) {
+function process_pack_installation(data, type) {
     const dependencies = data.dependencies[type]
     const installation_command = data.core.installation_command
     const os = data.core.os
@@ -91,8 +91,8 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
 
 module.exports = function (data) {
     return [
-        ...process_package_installation(data, 'simples'),
-        ...process_package_installation(data, 'customs'),
+        ...process_pack_installation(data, 'simples'),
+        ...process_pack_installation(data, 'customs'),
         ...process_dotfiles(
             data.dotfiles,
             data.core.os,

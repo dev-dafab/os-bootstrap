@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const browserify = require('browserify')
+const path = require('path')
+
+var b = browserify()
+
+const modules = require('../browser.module.js')
+modules.forEach((m) => b.add(m))
+try {
+    b.bundle().pipe(process.stdout)
+} catch (e) {
+    console.log(e)
+}

@@ -40,6 +40,7 @@
     "prepublish": "npm run pkg:win;npm run pkg:mac;npm run pkg:linux",
     "test:wizard": "node src/index.js wizard",
     "test:wizard-with-config-file": "node src/index.js wizard --config-file documentation/sample-config.yaml",
+    "browser:build": "ENV=BROWSER node -r dotenv/config node_modules/browserify/bin/cmd.js src/wizard/index.js src/get-script/index.js -r './src/configstore-wrapper.js':configstore  -r './src/fs-wrapper.js':fs >> build/osb-browser.js",
     "start": "nodemon"
   },
   "dependencies": {
@@ -57,8 +58,10 @@
   "devDependencies": {
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
+    "browserify": "^16.5.1",
     "commander": "^5.1.0",
     "configstore": "^5.0.1",
+    "dotenv": "^8.2.0",
     "pkg": "^4.4.8",
     "rimraf": "^3.0.2",
     "shelljs": "^0.8.4"

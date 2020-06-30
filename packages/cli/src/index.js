@@ -23,7 +23,7 @@ program
     .option('-xdg, --xdg', 'use XDG config')
     .action(async (options) => {
         const script = await get_script(options)
-        console.log(script)
+        console.log(script);
     })
 
 program.on('--help', () => {
