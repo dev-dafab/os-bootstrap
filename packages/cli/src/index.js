@@ -21,8 +21,9 @@ program
     .command('get-script')
     .option('-c, --config-file <config_file>', 'yaml specification file')
     .option('-xdg, --xdg', 'use XDG config')
-    .action((options) => {
-        get_script(options)
+    .action(async (options) => {
+        const script = await get_script(options)
+        console.log(script)
     })
 
 program.on('--help', () => {

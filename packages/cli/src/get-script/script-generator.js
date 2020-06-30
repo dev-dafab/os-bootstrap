@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 // A; B    # Run A and then B, regardless of success of A
 // A && B  # Run B if and only if A succeeded
@@ -65,8 +65,7 @@ function generate_ln_command(dotfile_spec, dotfiles_location) {
             ? [file.destination]
             : file.destination
         ).map((destination) => {
-console.log(typeof file.source);
-            const source = path.join(dotfiles_location, file.source);
+            const source = path.join(dotfiles_location, file.source)
             return `ln -s ${source} ${destination}`
         })
     })
@@ -78,7 +77,9 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
         const dotfile_spec = dotfile[dotfile_name]
         if ('os' in dotfile_spec) {
             const oses =
-                typeof dotfile_spec['os'] === 'string' ? [dotfile_spec['os']] : dotfile_spec['os']
+                typeof dotfile_spec['os'] === 'string'
+                    ? [dotfile_spec['os']]
+                    : dotfile_spec['os']
             if (oses.includes(os)) {
                 return generate_ln_command(dotfile_spec, dotfiles_location)
             }
@@ -89,14 +90,15 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
 }
 
 module.exports = function (data) {
-    const script = [
+    return [
         ...process_package_installation(data, 'simples'),
         ...process_package_installation(data, 'customs'),
-        ...process_dotfiles(data.dotfiles, data.core.os, data.core.dotfiles_location),
+        ...process_dotfiles(
+            data.dotfiles,
+            data.core.os,
+            data.core.dotfiles_location
+        ),
     ]
         .flat(10)
         .filter((el) => typeof el !== 'undefined' && el.length > 0)
-
-    console.log(script)
-    return script
 }

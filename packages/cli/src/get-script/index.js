@@ -6,8 +6,9 @@ const parseOptions = require('../parse-options'),
 module.exports = function (options) {
     const opts = parseOptions(options)
     const data = read(opts.configFile)
-    return validate(data).then((_data) => {
-        const script = generate_bash_script(data)
-        return script;
-}).catch(err => console.log(err))
+    return validate(data)
+        .then((_data) => {
+            return generate_bash_script(data)
+        })
+        .catch((err) => console.log(err))
 }
