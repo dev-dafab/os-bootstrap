@@ -7,6 +7,4 @@ objects:
     message: Do you like to install dotfiles?
   - type: input
     name: 'core.dotfiles_location'
-    when: !!js/function function(answer) {return answer.withDotfiles === true}
     message: Please provide your dotfiles location (or github)
-

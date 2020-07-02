@@ -1,5 +1,3 @@
-// const env = require('dotenv')
-
 function writeFileSyncBrowser(path, data, options) {
     return 'TODO'
 }

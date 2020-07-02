@@ -34,3 +34,19 @@ function parse(shell = 'zsh', installation = 'oh-my-zsh') {
 module.exports = function (answers) {
     return parse(answers.Shell, answers.SHELLInstallation)
 }
+
+function whenSHELLConfig(shell_type, answer) {
+    return answer['core.shell'] === shell_type
+}
+
+module.exports.when = {
+    'core.shell.config.zsh': function (answer) {
+        return whenSHELLConfig('zsh', answer)
+    },
+    'core.shell.config.bash': function (answer) {
+        return whenSHELLConfig('bash', answer)
+    },
+    'core.shell.config.fish': function (answer) {
+        return whenSHELLConfig('fish', answer)
+    },
+}

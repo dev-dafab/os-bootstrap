@@ -1,0 +1,117 @@
+core:
+  os: darwin
+  dotfiles_location: configs
+  installation_command: brew
+
+dotfiles:
+  - osx:
+      os: "darwin"
+      files:
+        - source: osx/osx
+          destination: ~/.osx
+
+  - xinitrc:
+      os: "linux"
+      files:
+        - source: xresources/xinitrc.sh
+          destination: ~/.xinitrc
+
+  - xresources:
+      os: "linux"
+      files:
+        - source: xresources/Xresources
+          destination: ~/.Xresources
+
+  - vim:
+      os: ["linux", "darwin"]
+      files:
+        - source: vim
+          destination:
+            - ~/.config/nvim
+            - ~/.vim
+        - source: vim/vimrc.vim
+          destination:
+          - ~/.vimrc
+  - vim:
+      os: ["linux", "darwin"]
+      files:
+        - source: vifm
+          destination:
+            - ~/.config/vifm
+
+  - git gitconfig:
+      files:
+        - source: git/gitconfig
+          destination:
+          - ~/.gitconfig
+
+  - git gitignore:
+      files:
+        - source: git/gitignore_global
+          destination:
+            - ~/.gitignore_global
+
+  - zsh:
+      files:
+        - source: zsh/zshrc.zsh
+          destination:
+            - ~/.zshrc
+        - source: zsh/zsh-custom-plugins
+          destination:
+            - ~/.zsh-custom-plugins
+
+  - tmux:
+      files:
+        - source: tmux/tmux.conf
+          destination:
+            - ~/.tmux.conf
+        - source: tmux/tmux-config
+          destination:
+            - ~/.tmux/plugins/tmux-config
+
+  - fzf:
+      files:
+        - source: fzf
+          destination:
+          - ~/.fzf
+
+  - curl:
+      files:
+        - source: curl/curlrc
+          destination:
+          - ~/.curlrc
+
+dependencies:
+  simples:
+    - git-core
+    - git
+    - curl
+    - wget
+    - ssh
+    - sshfs
+    - httpie
+    - tree
+    - stow
+    - shellcheck
+    - postgresql
+    - [mysql-client, mysql-server, mysql-common]
+    - mongodb
+    - tmux
+    - tmuxinator
+
+  customs:
+  - xclip
+  - pbcopy:
+      os:
+      - name: darwin
+        command: custom_install_command install pbcopy
+  - pure-prompt:
+      os:
+      - name: linux
+        command: npm install -g pure-prompt
+  - java:
+      os:
+      - name: linux
+        command: apt-get install java
+      - name: darwin
+        command: brew install java

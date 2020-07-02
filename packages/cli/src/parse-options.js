@@ -1,7 +1,6 @@
 const path = require('path'),
     fs = require('fs'),
-    { URL } = require('url'),
-    xdg_config_path = '~/.config/configstore/os-bootstrap.json'
+    { URL } = require('url')
 
 function path_exists(path) {
     return fs.existsSync(path)
@@ -16,13 +15,11 @@ function is_url(url) {
 }
 
 module.exports = function (options) {
-    let configFile = xdg_config_path
-    if (!options.xdg) {
-        configFile =
-            options.configFile && path_exists(options.configFile)
-                ? options.configFile
-                : xdg_config_path
+    let configFile = null
+    if (options.configFile !== null) {
+        configFile = options.configFile
     }
+
     const dotfileLocation =
         options.dotfileLocation &&
         path_exists(options.dotfileLocation) &&

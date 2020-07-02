@@ -1,24 +1,21 @@
 Id: SHELL.Config
 Name: SHELLConfigurator
 Author: FDS
-Objects:
+objects:
   - type: list
-    name: Shell
+    name: 'core.shell'
     message: Select preferred Shell Environment
     choices: [ "zsh", "bash", "fish" ]
   - type: list
-    name: SHELLInstallation
-    when: !!js/function function(answer) {return answer.Shell === "zsh"}
+    name: 'core.shell.config.zsh'
     message: Select ZSH installation method
     choices: [ "minimal", "oh-my-zsh", "presto", "custom" ]
   - type: list
-    name: SHELLInstallation
-    when: !!js/function function(answer) {return answer.Shell === "bash"}
+    name: 'core.shell.config.bash'
     message: Select BASH installation method
     choices: [ "minimal", "oh-my-bash", "custom" ]
   - type: list
-    name: SHELLInstallation
-    when: !!js/function function(answer) {return answer.Shell === "fish"}
+    name: 'core.shell.config.fish'
     message: Select FISH installation method
     choices: [ "minimal", "oh-my-fish", "custom" ]
 

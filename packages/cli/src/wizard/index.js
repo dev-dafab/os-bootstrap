@@ -6,7 +6,6 @@ const path = require('path'),
 
 module.exports = function (options) {
     const opts = parseOptions(options)
-    console.log(opts)
     require('./wizard')()
         .then((answers) => {
             validate(answers)
@@ -14,6 +13,7 @@ module.exports = function (options) {
         })
         .then((e) => {
             console.log('run hier already')
+            console.log(opts.configFile, e)
             return write(opts.configFile, e)
         })
 }

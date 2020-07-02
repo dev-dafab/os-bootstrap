@@ -31,9 +31,11 @@ function removeIntermediateResponse(answers) {
 function start_wizard(options) {
     let wizard_items = [
         require('@os-bootstrap/os-configurator'),
+        require('@os-bootstrap/shell-configurator'),
         require('@os-bootstrap/dotfiles-configurator'),
         require('@os-bootstrap/installation_command-configurator'),
         require('@os-bootstrap/simple-dependency-installer'),
+        require('@os-bootstrap/tmux-configurator'),
     ]
 
     const whens = get_wizard_function('when', wizard_items)
@@ -45,6 +47,7 @@ function start_wizard(options) {
     const questions = wizard_items
         .reduce((acc, item) => {
             const objects = item.specification.objects
+            console.log(item)
             acc.push(...objects)
             return acc
         }, [])

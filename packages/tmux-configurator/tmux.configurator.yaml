@@ -1,5 +1,16 @@
 
 id: tmux.configurator
 name: tmuxconfigurator
-author:
-Objects:
+author: FDS
+objects:
+  - type: confirm
+    name: withTmux
+    message: Do you like to configure tmux?
+  - type: checkbox
+    name: 'customs.tmux'
+    message: Choose tmuxinator
+    choices:
+      - tmuxinator
+      - tmuxp
+      - tmux plugins manager (tpm)
+      - custom tmux configuration

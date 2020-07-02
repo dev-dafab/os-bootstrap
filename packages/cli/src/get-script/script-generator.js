@@ -1,31 +1,31 @@
 const path = require('path')
 
-    // A; B    # Run A and then B, regardless of success of A
-    // A && B  # Run B if and only if A succeeded
-    // A || B  # Run B if and only if A failed
-    // A &     # Run A in background.
-    //
-    // Command for running scripts in paralell
-    // - parallel       -- GNU based
+// A; B    # Run A and then B, regardless of success of A
+// A && B  # Run B if and only if A succeeded
+// A || B  # Run B if and only if A failed
+// A &     # Run A in background.
+//
+// Command for running scripts in paralell
+// - parallel       -- GNU based
 
-    function custom_dependency_parser(
-        pack,
-        installation_command,
-        os,
-        cb_for_simple_pack_array
-    ) {
-        if (Array.isArray(pack)) {
-            return cb_for_simple_pack_array(pack, installation_command)
-        } else {
-            const el = pack[Object.keys(pack).pop()].os
-                .filter((_pack) => _pack.name === os)
-                .pop()
-            if (typeof el !== 'undefined' && 'command' in el) {
-                return el.command
-            }
-            return undefined
+function custom_dependency_parser(
+    pack,
+    installation_command,
+    os,
+    cb_for_simple_pack_array
+) {
+    if (Array.isArray(pack)) {
+        return cb_for_simple_pack_array(pack, installation_command)
+    } else {
+        const el = pack[Object.keys(pack).pop()].os
+            .filter((_pack) => _pack.name === os)
+            .pop()
+        if (typeof el !== 'undefined' && 'command' in el) {
+            return el.command
         }
+        return undefined
     }
+}
 
 const processors = {
     simples: function (dependencies, installation_command, os) {
