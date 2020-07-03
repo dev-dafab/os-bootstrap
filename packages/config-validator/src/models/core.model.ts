@@ -4,21 +4,19 @@ import {
     IsValidDotfileLocation
 } from '../validation.decorator'
 import { OS } from './os.model'
-import { IsNotEmpty, IsNotEmptyObject, IsDefined } from 'class-validator';
+import { IsNotEmpty, IsNotEmptyObject, IsDefined, ValidateIf, ValidateNested } from 'class-validator';
 import { InstallationCommand } from './install-command.model';
 
 export class Core {
     @IsSupportedOS()
-    @IsNotEmptyObject()
-    @IsDefined()
     os: OS;
 
-    @IsValidDotfileLocation()
-    @IsNotEmpty()
+    @IsValidDotfileLocation({message: "Dotfile location should be a valid path or git repo"})
+    @IsNotEmpty({message: "Dotfile location should be provided"})
     dotfiles_location: string;
 
+    home_dir?: string;
+
     @IsValidInstallationCommand()
-    @IsNotEmptyObject()
-    @IsDefined()
     installation_command: InstallationCommand;
 }

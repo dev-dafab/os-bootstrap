@@ -1,4 +1,5 @@
 const path = require('path')
+const cmd = require('./cmd')
 
 // A; B    # Run A and then B, regardless of success of A
 // A && B  # Run B if and only if A succeeded
@@ -89,16 +90,29 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
     })
 }
 
+function addParallel(value) {
+    const delimiter = cmd.is_parallel_installed() ? 'parallel ' : ''
+    if (value.startsWith('***')) {
+        return value
+    }
+    return `${delimiter}${value}`
+}
+
 module.exports = function (data) {
     return [
+        '************** PACKAGES INSTALLATION **************',
         ...process_pack_installation(data, 'simples'),
         ...process_pack_installation(data, 'customs'),
+        '************** DOTFILES INSTALLATION **************',
         ...process_dotfiles(
             data.dotfiles,
             data.core.os,
             data.core.dotfiles_location
         ),
+        '************** END OF INSTALLATION **************',
+        '**************       HAVE FUN      **************',
     ]
         .flat(10)
         .filter((el) => typeof el !== 'undefined' && el.length > 0)
+        .map(addParallel)
 }

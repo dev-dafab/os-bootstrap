@@ -3,7 +3,7 @@ name: simple-depencyinstaller
 author: fds
 objects:
   - type: checkbox
-    name: 'dependency.simple'
+    name: 'dependencies.simples'
     message: 'enter simple dependency'
     choices: [
     'tree',

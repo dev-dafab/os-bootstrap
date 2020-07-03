@@ -40,7 +40,11 @@ title(() => {
 
     program
         .command('get-script')
-        .option('-c, --config-file <config_file>', 'yaml specification file')
+        .option(
+            '-c, --config-file <config_file>',
+            'yaml specification file',
+            null
+        )
         .option('-xdg, --xdg', 'use XDG config', true)
         .action(async (options) => {
             const script = await get_script(options)

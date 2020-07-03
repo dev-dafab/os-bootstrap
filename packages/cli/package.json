@@ -54,6 +54,7 @@
     "@os-bootstrap/tmux-configurator": "^1.0.3",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
+    "eol": "^0.9.1",
     "figlet": "^1.4.0",
     "inquirer": "^7.1.0",
     "rxjs": "^6.5.5"
@@ -68,6 +69,7 @@
     "dotenv": "^8.2.0",
     "pkg": "^4.4.8",
     "rimraf": "^3.0.2",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "which": "^2.0.2"
   }
 }

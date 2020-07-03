@@ -7,15 +7,40 @@ import { load } from 'js-yaml'
 
 
 export const validate = async (
-    content: string,
+    content: string | Object,
     validationOptions: ValidatorOptions = {}
-): Promise<Config | string[]>  => {
-    validationOptions = { ...validationOptions, skipMissingProperties: false }
-    const config: Config = plainToClass(Config, load(content))
-    const errors: ValidationError[] = await classValidate(config, validationOptions);
+): Promise<Config | string>  => {
+    const _validationOptions = { ...validationOptions, skipMissingProperties: false }
+    const config: Config = plainToClass(Config, content);
+    const errors: ValidationError[] = await classValidate(config, _validationOptions);
     if (errors.length === 0) {
         return Promise.resolve(config as Config);
     }
-    return Promise.reject(errors.map(e => e.toString()) as string[]);
+
+    return Promise.reject(
+        (errors.map(e => e.children))
+        .toLocaleString()
+    );
 }
 
+
+/**
+const foo = {
+    core:{
+        os: "darwin"
+    }
+}
+
+validate(foo)
+.then(
+    o => {
+        console.log("successs");
+            console.log(o);
+    }
+)
+.catch(
+    err => {
+            console.log(err);
+    }
+)
+*/

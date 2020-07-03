@@ -14,6 +14,7 @@ export class CustomDependencySpec {
   @ValidateNested()
   @Type(() => InstallationSpec)
   os: InstallationSpec[];
+
 }
 
 export class CustomDependency {
@@ -22,8 +23,6 @@ export class CustomDependency {
 
 export class Dependency  {
 
-  @ValidateNested()
-  @MinLength(1)
   simples?: string[] | string[][];
 
   @ValidateNested()

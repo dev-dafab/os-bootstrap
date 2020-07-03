@@ -25,10 +25,10 @@ const isValidPath = (path: string) => {
 const isSupportedOS = (os: any) => {
     if (isUndefined(os)) return false;
     return isString(os)
-        ? 'linuxosx'.indexOf(os.toLowerCase()) !== -1
+        ? 'linuxdarwin'.indexOf(os.toLowerCase()) !== -1
         : (os as string[])
               .map((e) => e.toLowerCase())
-              .every((e) => 'linuxosx'.indexOf(os) !== -1)
+              .every((e) => 'linuxdarwin'.indexOf(os) !== -1)
 }
 
 export function IsSupportedOS(validationOptions?: ValidationOptions) {
@@ -99,7 +99,8 @@ export function IsValidInstallationCommand(
             options: validationOptions,
             validator: {
                 validate(value: any, args: ValidationArguments) {
-                    return isNotEmpty(value) && isString(value);
+                    console.log(object);
+                    return isNotEmpty(value);
                 },
             },
         })

@@ -16,12 +16,6 @@ dotfiles:
         - source: xresources/xinitrc.sh
           destination: ~/.xinitrc
 
-  - xresources:
-      os: "linux"
-      files:
-        - source: xresources/Xresources
-          destination: ~/.Xresources
-
   - vim:
       os: ["linux", "darwin"]
       files:
@@ -29,15 +23,9 @@ dotfiles:
           destination:
             - ~/.config/nvim
             - ~/.vim
-        - source: vim/vimrc.vim
+        - source: vim/init.vim
           destination:
           - ~/.vimrc
-  - vim:
-      os: ["linux", "darwin"]
-      files:
-        - source: vifm
-          destination:
-            - ~/.config/vifm
 
   - git gitconfig:
       files:
@@ -45,11 +33,6 @@ dotfiles:
           destination:
           - ~/.gitconfig
 
-  - git gitignore:
-      files:
-        - source: git/gitignore_global
-          destination:
-            - ~/.gitignore_global
 
   - zsh:
       files:
@@ -65,21 +48,15 @@ dotfiles:
         - source: tmux/tmux.conf
           destination:
             - ~/.tmux.conf
-        - source: tmux/tmux-config
-          destination:
-            - ~/.tmux/plugins/tmux-config
 
   - fzf:
       files:
-        - source: fzf
+        - source: fzf/fzf.zsh
           destination:
-          - ~/.fzf
-
-  - curl:
-      files:
-        - source: curl/curlrc
+          - ~/.fzf.zsh
+        - source: fzf/fzf.config.zsh
           destination:
-          - ~/.curlrc
+          - ~/.fzf.config.zsh
 
 dependencies:
   simples:
@@ -100,7 +77,9 @@ dependencies:
     - tmuxinator
 
   customs:
-  - xclip
+  - xclip:
+      os:
+      - name: linux
   - pbcopy:
       os:
       - name: darwin

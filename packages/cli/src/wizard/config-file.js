@@ -3,6 +3,27 @@
     (fs = require('fs')),
     (yaml = require('js-yaml'))
 
+function isEmptyConfig(content = {}) {
+    try {
+        return Object.keys(content).length === 0
+    } catch (e) {
+        return true
+    }
+}
+
+function NoConfigurationFilePresents(message) {
+    this.message = message
+    this.name = 'NoConfigurationFilePresent'
+}
+
+function EmptyConfigurationFile(message) {
+    this.message = message
+    this.name = 'EmptyConfigurationFile'
+}
+
+module.exports.NoConfigurationFilePresent = NoConfigurationFilePresents
+module.exports.EmptyConfigurationFile = EmptyConfigurationFile
+
 module.exports.write = function write(location, data) {
     if (location === null) {
         return new Configstore(osb_name, data)
@@ -16,13 +37,34 @@ module.exports.write = function write(location, data) {
     })
 }
 
+function read_config(location, configstore) {
+    if (configstore !== null) {
+        configstore.all
+    }
+
+    return yaml.safeLoad(fs.readFileSync(location, 'utf8'))
+}
+
 module.exports.read = function read(location) {
+    let _location = location
+    let config_store = null
+
     if (location === null) {
-        return new Configstore(osb_name).all
+        config_store = new Configstore(osb_name)
+        _location = config_store.path
     }
-    try {
-        return yaml.safeLoad(fs.readFileSync(location, 'utf8'))
-    } catch (e) {
-        console.log(e)
+
+    if (!fs.existsSync(_location)) {
+        throw new NoConfigurationFilePresents(
+            `config file ${_location} presents. please first run the wizard`
+        )
     }
+
+    const config_file_content = read_config(_location, config_store)
+    if (isEmptyConfig(config_file_content)) {
+        throw new EmptyConfigurationFile(
+            `no ${config_store.path} empty. please first run the wizard`
+        )
+    }
+    return config_file_content
 }
