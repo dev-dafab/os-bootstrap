@@ -30,7 +30,7 @@
   "private": false,
   "osb-name": "osb",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage=true",
     "test:watch": "jest --watchAll  --testPathPattern ./__tests__/*.test.js --coverage=true",
     "prebuild": "rimraf build",
     "build": "babel src --out-dir build/src --copy-files",

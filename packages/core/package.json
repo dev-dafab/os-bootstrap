@@ -25,7 +25,7 @@
   },
   "private": false,
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage=true",
     "build": "echo build",
     "start": "nodemon"
   },

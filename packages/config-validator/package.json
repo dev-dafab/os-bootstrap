@@ -25,7 +25,8 @@
   },
   "private": false,
   "scripts": {
-    "test": "jest --coverage --watchAll --testPathPattern=__tests__",
+    "test:this": "jest --coverage=true",
+    "test:this": "jest --coverage --watchAll --testPathPattern=__tests__",
     "check": "gts check",
     "tsc": "tsc",
     "compile": "tsc",

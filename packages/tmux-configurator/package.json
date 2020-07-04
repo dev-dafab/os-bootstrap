@@ -26,7 +26,7 @@
   "private": false,
   "os-bootstrap-specification-file": "tmux.configurator.yaml",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage=true",
     "build": "gulp build",
     "start": "nodemon"
   },
