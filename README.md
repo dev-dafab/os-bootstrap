@@ -1,4 +1,5 @@
 ![Node.js CI](https://github.com/dev-dafab/os-bootstrap/workflows/Node.js%20CI/badge.svg)
+[![codecov](https://codecov.io/gh/dev-dafab/os-bootstrap/branch/master/graph/badge.svg)](https://codecov.io/gh/dev-dafab/os-bootstrap)
 
 # os-bootstrap
 dependencies installer, dotfiles installer
