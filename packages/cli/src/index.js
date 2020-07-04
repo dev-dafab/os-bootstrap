@@ -22,43 +22,31 @@ const title = (cb) => {
     cb()
 }
 
-title(() => {
-    program
-        .command('wizard')
-        .option(
-            '-c, --config-file [configfile]',
-            'yaml specification file',
-            null
-        )
-        .option('-d, --dotfile-location <dotfile_location>', 'dotfile location')
-        .option('-xdg, --xdg', 'use XDG config', false)
-        .action(async (options) => {
-            console.log(options.configFile)
+program
+    .command('wizard')
+    .option('-c, --config-file [configfile]', 'yaml specification file', null)
+    .option('-d, --dotfile-location <dotfile_location>', 'dotfile location')
+    .option('-xdg, --xdg', 'use XDG config', false)
+    .action(async (options) => {
+        title(async () => {
             const config_file = await wizard(options)
             console.log(config_file)
         })
+    })
 
-    program
-        .command('get-script')
-        .option(
-            '-c, --config-file <config_file>',
-            'yaml specification file',
-            null
-        )
-        .option('-xdg, --xdg', 'use XDG config', true)
-        .action(async (options) => {
+program
+    .command('get-script')
+    .option('-c, --config-file <config_file>', 'yaml specification file', null)
+    .option('-xdg, --xdg', 'use XDG config', true)
+    .action(async (options) => {
+        title(async () => {
             const script = await get_script(options)
             console.log(script)
         })
-
-    program.on('--help', () => {
-        console.log(help_message)
     })
 
-    try {
-        program.parse(process.argv)
-    } catch (err) {
-        console.log(err)
-        console.log('An error occur')
-    }
+program.on('--help', () => {
+    console.log(help_message)
 })
+
+program.parse(process.argv)

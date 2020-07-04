@@ -47,7 +47,6 @@ function start_wizard(options) {
     const questions = wizard_items
         .reduce((acc, item) => {
             const objects = item.specification.objects
-            console.log(item)
             acc.push(...objects)
             return acc
         }, [])
@@ -87,7 +86,7 @@ function start_wizard(options) {
             return item
         })
 
-    clear()
+    // clear()
     return inquirer.prompt(questions).then((answers) => {
         clear({ fullClear: false })
         return answers

@@ -4,16 +4,14 @@ const path = require('path'),
     { validate } = require('@os-bootstrap/config-validator'),
     { write, read } = require('./config-file')
 
-module.exports = function (options) {
+module.exports = async (options) => {
     const opts = parseOptions(options)
-    require('./wizard')()
-        .then((answers) => {
-            validate(answers)
-            return answers
-        })
-        .then((e) => {
-            console.log('run hier already')
-            console.log(opts.configFile, e)
-            return write(opts.configFile, e)
-        })
+
+    try {
+        const answers = await require('./wizard')()
+        const validatedAnswers = await validate(answers)
+        return write(opts.configFile, validatedAnswers)
+    } catch (error) {
+        console.log(error)
+    }
 }
