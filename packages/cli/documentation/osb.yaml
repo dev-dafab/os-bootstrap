@@ -2,6 +2,7 @@ core:
   os: darwin
   dotfiles_location: configs
   installation_command: brew
+  home_dir: ~/test/
 
 dotfiles:
   - osx:

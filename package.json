@@ -22,6 +22,9 @@
     "test": "echo 'run test script in all packages' && lerna run test --concurrency=1 --stream",
     "publish-all": "lerna publish",
     "dev:cp-gulpfile": "node scripts/cp-file-to-all-package.js --input=gulpfile.base.js --output=gulpfile.js --ignore=web,cli",
+    "install-bash": "echo chroot fakeroot fakechroot bats",
+    "pretest:integration": "node scripts/chroot.js",
+    "test:integration": "fakechroot fakeroot chroot ~/osb /bin/bats cli/it",
     "ci": "echo CI"
   },
   "workspaces": [
