@@ -57,7 +57,7 @@
     "eol": "^0.9.1",
     "figlet": "^1.4.0",
     "inquirer": "^7.1.0",
-    "rxjs": "^6.5.5"
+    "rxjs": "^6.6.0"
   },
   "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99",
   "devDependencies": {

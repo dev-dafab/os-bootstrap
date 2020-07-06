@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
 const clear = require('clear')
+const { Subject } = require('rxjs')
 
 function get_wizard_function(function_name, wizard_items) {
     return wizard_items.reduce((acc, item) => {
@@ -42,7 +43,7 @@ function start_wizard(options) {
     const filters = get_wizard_function('filter', wizard_items)
     const validators = get_wizard_function('validate', wizard_items)
     const transformers = get_wizard_function('transformer', wizard_items)
-    const prompts = get_wizard_function('prompts', wizard_items)
+    const afters = get_wizard_function('after', wizard_items)
 
     const questions = wizard_items
         .reduce((acc, item) => {
@@ -78,19 +79,31 @@ function start_wizard(options) {
             }
             return item
         })
-        .map((item) => {
-            // append transformer function to questions
-            if (item.name in prompts) {
-                item['prompts'] = prompts[item.name]()
-            }
-            return item
-        })
 
-    // clear()
-    return inquirer.prompt(questions).then((answers) => {
-        clear({ fullClear: false })
-        return answers
+    const prompts = new Subject()
+    const prompt = inquirer.prompt(prompts)
+
+    questions.forEach((question) => {
+        prompts.next(question)
     })
+
+    let answers = {}
+
+    prompt.ui.process.subscribe(
+        (answer) => {
+            const key = answer.name
+            if (key in afters) {
+                console.log(afters[key]())
+                prompts.next(afters[key]())
+            }
+            answers = { ...answers, ...answer }
+            return answer
+        },
+        console.log,
+        console.log
+    )
+    prompt.ui.process.complete()
+    return answers
 }
 
 module.exports = function wizard(options) {

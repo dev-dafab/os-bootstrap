@@ -8,3 +8,6 @@ objects:
   - type: input
     name: 'core.dotfiles_location'
     message: Please provide your dotfiles location (or github)
+  - type: input
+    name: 'core.dotfiles_location'
+    message: Please provide your dotfiles location (or github)

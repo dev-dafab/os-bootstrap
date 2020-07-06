@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 
-const { exec } = require('shelljs')
-const fs = require('fs')
-
-const chroot_dir = '~/osb'
-
-const packages = ['node']
+const { exec } = require('shelljs'),
+    chroot_dir = '~/osb',
+    packages = ['node']
 
 const chroot_dirs = {
     bin: ['bash', 'touch', 'ls', 'rm', 'dirname', 'head', 'cat', 'command'],
@@ -29,13 +26,10 @@ const cp_bin_dependencies = (bin) => {
 
 _exec(`rm -rf ${chroot_dir}`)
 
-
-// mkdir
 Object.keys(chroot_dirs)
     .map((key) => `${chroot_dir}/${key}`)
     .forEach(mkdir)
 
-// cp dependencies
 Object.keys(chroot_dirs).forEach((key) => {
     chroot_dirs[key]
         .map((value) => {
@@ -47,7 +41,9 @@ Object.keys(chroot_dirs).forEach((key) => {
 })
 
 // cp bats
-_exec(`cp /usr/libexec/bats-core/bats /usr/libexec/bats-core/bats-* ${chroot_dir}/bin`)
+_exec(
+    `cp /usr/libexec/bats-core/bats /usr/libexec/bats-core/bats-* ${chroot_dir}/bin`
+)
 _exec(`cp /usr/bin/env  ${chroot_dir}/usr/bin/`)
 
 packages
