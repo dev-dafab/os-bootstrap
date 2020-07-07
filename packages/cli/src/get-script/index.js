@@ -5,7 +5,7 @@ const parseOptions = require('../parse-options'),
 
 module.exports = function (options) {
     const opts = parseOptions(options)
-    return validate(read(opts.configFile))
+    return validate(read(opts.configFile), opts.dotfileLocation)
         .then((_data) => generate_bash_script(_data))
         .catch((err) => console.log(err))
 }

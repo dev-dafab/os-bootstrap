@@ -25,19 +25,21 @@
     "registry": "https://npm.pkg.github.com"
   },
   "bin": {
-    "os-bootstrap": "./build/osb-cli.js"
+    "os-bootstrap": "./build/src/index.js"
   },
   "private": false,
   "osb-name": "osb",
   "scripts": {
     "test": "jest --coverage=true",
+    "assets": "./node_modules/figlet/fonts/*",
+    "scripts": "./build/src/index.js",
     "test:watch": "jest --watchAll  --testPathPattern ./__tests__/*.test.js --coverage=true",
     "prebuild": "rimraf build",
     "build": "babel src --out-dir build/src --copy-files",
     "postbuild": "scripts/cp package.json build/",
-    "pkg:win": "pkg build/src/index.js --targets win --output build/win/osb",
-    "pkg:mac": "pkg build/src/index.js --targets macos --output build/mac/osb",
-    "pkg:linux": "pkg build/src/index.js --targets linux --output build/linux/osb",
+    "pkg:win": "pkg package.json --targets win --output build/win/osb",
+    "pkg:mac": "pkg package.json --targets macos --output build/mac/osb",
+    "pkg:linux": "pkg package.json --targets linux --output build/linux/osb",
     "prepublish": "npm run pkg:win;npm run pkg:mac;npm run pkg:linux",
     "test:wizard": "node src/index.js wizard",
     "test:wizard-with-config-file": "node src/index.js wizard --config-file documentation/sample-config.yaml",
@@ -71,5 +73,7 @@
     "rimraf": "^3.0.2",
     "shelljs": "^0.8.4",
     "which": "^2.0.2"
-  }
+  },
+  "assets": ["./node_modules/figlet/fonts/*"],
+  "pkg": {}
 }

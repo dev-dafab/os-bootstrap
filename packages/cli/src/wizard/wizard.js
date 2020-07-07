@@ -93,8 +93,9 @@ function start_wizard(options) {
         (answer) => {
             const key = answer.name
             if (key in afters) {
-                console.log(afters[key]())
-                prompts.next(afters[key]())
+                const q = afters[key]()
+                console.log(q)
+                prompts.next(q)
             }
             answers = { ...answers, ...answer }
             return answer

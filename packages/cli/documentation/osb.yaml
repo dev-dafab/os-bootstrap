@@ -1,90 +1,116 @@
 core:
   os: darwin
-  dotfiles_location: configs
+  dotfiles_location: documentation/configs
   installation_command: brew
-  home_dir: ~/test/
+  shell: zsh
+
+before_all:
+  - sudo $installation_command install zsh; chsh -s $(which zsh)
+  - $if_os_eq_darwin ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+before_all_installation:
+  - $installation_command update
 
 dotfiles:
   - osx:
       os: "darwin"
       files:
         - source: osx/osx
-          destination: ~/.osx
+          destinations: ~/.osx
 
   - xinitrc:
       os: "linux"
       files:
         - source: xresources/xinitrc.sh
-          destination: ~/.xinitrc
+          destinations: ~/.xinitrc
+
+  - xresources:
+      os: "linux"
+      files:
+        - source: xresources/Xresources
+          destinations: ~/.Xresources
 
   - vim:
       os: ["linux", "darwin"]
       files:
         - source: vim
-          destination:
+          destinations:
             - ~/.config/nvim
             - ~/.vim
         - source: vim/init.vim
-          destination:
-          - ~/.vimrc
+          destinations: ~/.vimrc
+
+  - vifm:
+      os: ["linux", "darwin"]
+      files:
+        - source: vifm
+          destinations:
+            - ~/.config/vifm
 
   - git gitconfig:
       files:
         - source: git/gitconfig
-          destination:
+          destinations:
           - ~/.gitconfig
 
+  - git gitignore:
+      files:
+        - source: git/gitignore_global
+          destinations:
+            - ~/.gitignore_global
 
   - zsh:
       files:
         - source: zsh/zshrc.zsh
-          destination:
-            - ~/.zshrc
+          destinations: ~/.zshrc
         - source: zsh/zsh-custom-plugins
-          destination:
-            - ~/.zsh-custom-plugins
+          destinations: ~/.zsh-custom-plugins
 
   - tmux:
       files:
         - source: tmux/tmux.conf
-          destination:
-            - ~/.tmux.conf
+          destinations: ~/.tmux.conf
+        - source: tmux/tmux-config
+          destinations: ~/.tmux/plugins/tmux-config
 
   - fzf:
-      files:
-        - source: fzf/fzf.zsh
-          destination:
-          - ~/.fzf.zsh
-        - source: fzf/fzf.config.zsh
-          destination:
-          - ~/.fzf.config.zsh
+      source: [fzf/fzf.zsh, fzf/fzf.config.zsh]
+
+  - curl:
+      source: curl/curlrc
 
 dependencies:
   simples:
-    - git-core
-    - git
+    - [git-core, git, git-extras, git-flow, git-lfs, hub]
+    - [docker, docker-compose]
+    - [ssh, sshfs, ssh-import-id, ssh-tools]
+    - [shellcheck, bats]
+    - [mysql-client, mysql-server, mysql-common]
     - curl
     - wget
-    - ssh
-    - sshfs
     - httpie
     - tree
     - stow
-    - shellcheck
     - postgresql
-    - [mysql-client, mysql-server, mysql-common]
-    - mongodb
     - tmux
     - tmuxinator
 
   customs:
-  - xclip:
-      os:
-      - name: linux
   - pbcopy:
       os:
       - name: darwin
         command: custom_install_command install pbcopy
+
+  - virtualbox:
+      os:
+      - name: darwin
+        command: brew cask install --appdir='/Applications' virtualbox
+
+  - slack:
+      os:
+      - name: darwin
+        command: brew cask install --appdir='/Applications' slack
+
   - pure-prompt:
       os:
       - name: linux

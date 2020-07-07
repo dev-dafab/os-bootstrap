@@ -4,6 +4,7 @@ import { validate as classValidate, ValidatorOptions, ValidationError } from 'cl
 
 import { Config } from './models/config.model'
 import { load } from 'js-yaml'
+import { Dotfile, OnlySourcesSpec, DotfileSpec, File } from './models/dotfile.model'
 
 
 export const validate = async (
@@ -21,6 +22,15 @@ export const validate = async (
         (errors.map(e => e.children))
         .toLocaleString()
     );
+}
+
+export const dotfiles_validation = {
+    isOnlySourcesSpec: (obj: Dotfile) => {
+        const keys =  Object.keys(obj[Object.keys(obj).pop()]);
+        return keys.length === 1 && keys.pop() === 'source';
+    },
+    isOnlyDotfileSpec: (obj: Dotfile) => obj[Object.keys(obj).pop()] instanceof  DotfileSpec,
+    isSourceDestination: (obj: Dotfile) => obj[Object.keys(obj).pop()] instanceof  File,
 }
 
 

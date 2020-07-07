@@ -1,5 +1,43 @@
 const path = require('path')
 const cmd = require('./cmd')
+const { dotfiles_validation } = require('@os-bootstrap/config-validator')
+
+const isString = (obj) => typeof obj === 'string'
+
+const getFullSourceFile = (source, dotfile_location) => {
+    return path.isAbsolute(source)
+        ? source
+        : path.join(process.env.PWD, dotfile_location, source)
+}
+
+const getDefaultDestinationFile = (source) => {
+    const ret = source.split('/').pop()
+    return ret.includes('.') ? `~/${ret}` : `~/.${ret}`
+}
+
+// - sudo $installation_command install zsh; chsh -s $(which zsh)
+// - $if_os_eq_darwin ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+const osb_eval = (str, data) => {
+    if (!str.includes('$')) {
+        return str
+    }
+
+    if (str.includes('$installation_command')) {
+        return str.replace(
+            '$installation_command',
+            data['core']['installation_command']
+        )
+    }
+
+    if (str.includes('eq') && str.includes('$if')) {
+        const str_parts = str.split(' ').shift().split('_')
+        return data['core'][str_parts[1]] === str_parts.pop()
+            ? `${str.split(str.split(' ').shift()).pop()}`.trim()
+            : ''
+    }
+
+    return str
+}
 
 // A; B    # Run A and then B, regardless of success of A
 // A && B  # Run B if and only if A succeeded
@@ -62,32 +100,55 @@ function process_pack_installation(data, type) {
 
 function generate_ln_command(dotfile_spec, dotfiles_location) {
     return dotfile_spec.files.map((file) => {
-        return (typeof file.destination === 'string'
-            ? [file.destination]
-            : file.destination
+        return (isString(file.destinations)
+            ? [file.destinations]
+            : file.destinations
         ).map((destination) => {
-            const source = path.join(dotfiles_location, file.source)
-            return `ln -s ${source} ${destination}`
+            return `ln -s ${getFullSourceFile(
+                file.source,
+                dotfiles_location
+            )} ${destination}`
         })
     })
 }
 
 function process_dotfiles(dotfiles, os, dotfiles_location) {
-    return dotfiles.map((dotfile) => {
-        const dotfile_name = Object.keys(dotfile).pop()
-        const dotfile_spec = dotfile[dotfile_name]
-        if ('os' in dotfile_spec) {
-            const oses =
-                typeof dotfile_spec['os'] === 'string'
-                    ? [dotfile_spec['os']]
-                    : dotfile_spec['os']
-            if (oses.includes(os)) {
-                return generate_ln_command(dotfile_spec, dotfiles_location)
+    return dotfiles
+        .map((dotfile) => {
+            const key_name = Object.keys(dotfile).pop()
+            const dotfile_spec = dotfile[key_name]
+            if (dotfiles_validation.isOnlySourcesSpec(dotfile)) {
+                return (isString(dotfile_spec['source'])
+                    ? [dotfile_spec['source']]
+                    : dotfile_spec['source']
+                ).reduce(
+                    (acc, source) => {
+                        acc[key_name].files.push({
+                            source,
+                            destinations: [getDefaultDestinationFile(source)],
+                        })
+                        return acc
+                    },
+                    { [key_name]: { files: [] } }
+                )
             }
-            return ''
-        }
-        return generate_ln_command(dotfile_spec, dotfiles_location)
-    })
+            return dotfile
+        })
+        .map((dotfile) => {
+            const dotfile_name = Object.keys(dotfile).pop()
+            const dotfile_spec = dotfile[dotfile_name]
+            if ('os' in dotfile_spec) {
+                const oses =
+                    typeof dotfile_spec['os'] === 'string'
+                        ? [dotfile_spec['os']]
+                        : dotfile_spec['os']
+                if (oses.includes(os)) {
+                    return generate_ln_command(dotfile_spec, dotfiles_location)
+                }
+                return ''
+            }
+            return generate_ln_command(dotfile_spec, dotfiles_location)
+        })
 }
 
 function addParallel(value) {
@@ -98,8 +159,16 @@ function addParallel(value) {
     return `${delimiter}${value}`
 }
 
+function process_before_scripts(data) {
+    return ('before_all' in data ? data['before_all'] : []).map((e) => {
+        return osb_eval(e, data)
+    })
+}
+
 module.exports = function (data) {
     return [
+        '************** Before Script **************',
+        ...process_before_scripts(data),
         '************** PACKAGES INSTALLATION **************',
         ...process_pack_installation(data, 'simples'),
         ...process_pack_installation(data, 'customs'),
