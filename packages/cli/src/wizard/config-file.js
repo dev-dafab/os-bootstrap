@@ -1,6 +1,8 @@
 ;(Configstore = require('configstore')),
     (osb_name = require('../../package.json').name),
     (fs = require('fs')),
+    (os = require('os')),
+    (path = require('path')),
     (yaml = require('js-yaml'))
 
 function isEmptyConfig(content = {}) {
@@ -32,6 +34,16 @@ module.exports.write = function write(location, data) {
         indent: 2,
     })
     return fs.writeFileSync(location, _data, {
+        encoding: 'utf8',
+        flag: 'wx',
+    })
+}
+
+module.exports.write_bash = function write(location = null, data) {
+    console.log(path.join(os.homedir(), 'osb.bash'))
+    const file =
+        location === null ? path.join(os.homedir(), 'osb.bash') : location
+    return fs.writeFileSync(file, data, {
         encoding: 'utf8',
         flag: 'wx',
     })

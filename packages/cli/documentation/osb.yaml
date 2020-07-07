@@ -1,6 +1,6 @@
 core:
   os: darwin
-  dotfiles_location: documentation/configs
+  dotfiles_location: ./configs
   installation_command: brew
   shell: zsh
 

@@ -1,7 +1,4 @@
-const inquirer = require('inquirer')
-const clear = require('clear')
-const { Subject } = require('rxjs')
-
+const prompt = require('../prompt')
 function get_wizard_function(function_name, wizard_items) {
     return wizard_items.reduce((acc, item) => {
         if (function_name in item) {
@@ -80,30 +77,12 @@ function start_wizard(options) {
             return item
         })
 
-    const prompts = new Subject()
-    const prompt = inquirer.prompt(prompts)
-
-    questions.forEach((question) => {
-        prompts.next(question)
-    })
-
     let answers = {}
 
-    prompt.ui.process.subscribe(
-        (answer) => {
-            const key = answer.name
-            if (key in afters) {
-                const q = afters[key]()
-                console.log(q)
-                prompts.next(q)
-            }
-            answers = { ...answers, ...answer }
-            return answer
-        },
-        console.log,
-        console.log
-    )
-    prompt.ui.process.complete()
+    prompt(questions, (answer) => {
+        answers = { ...answers, ...answer }
+        return answer
+    })
     return answers
 }
 

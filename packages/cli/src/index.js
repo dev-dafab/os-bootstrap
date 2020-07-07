@@ -4,23 +4,9 @@ const { program } = require('commander'),
     help_message = require('./help.message'),
     { version } = require('../package'),
     wizard = require('./wizard'),
-    get_script = require('./get-script'),
-    figlet = require('figlet'),
-    chalk = require('chalk')
+    get_script = require('./get-script')
 
 program.version(version)
-
-const title = (cb) => {
-    console.log(
-        chalk.yellow(
-            figlet.textSync('OSB: OS Bootstrap', {
-                horizontalLayout: 'default',
-                verticalLayout: 'default',
-            })
-        )
-    )
-    cb()
-}
 
 program
     .command('wizard')
@@ -28,21 +14,19 @@ program
     .option('-d, --dotfile-location <dotfile_location>', 'dotfile location')
     .option('-xdg, --xdg', 'use XDG config', false)
     .action(async (options) => {
-        title(async () => {
-            const config_file = await wizard(options)
-            console.log(config_file)
-        })
+        const config_file = await wizard(options)
+        console.log(config_file)
     })
 
 program
     .command('get-script')
-    .option('-c, --config-file <config_file>', 'yaml specification file', null)
+    .requiredOption(
+        '-c, --config-file <config_file>',
+        'yaml specification file'
+    )
     .option('-xdg, --xdg', 'use XDG config', true)
     .action(async (options) => {
-        title(async () => {
-            const script = await get_script(options)
-            console.log(script)
-        })
+        process.stdout.pipe(await get_script(options))
     })
 
 program.on('--help', () => {

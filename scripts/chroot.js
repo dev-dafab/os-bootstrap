@@ -57,3 +57,6 @@ packages
     .forEach(cp_bin_dependencies)
 
 _exec(`cp -v -rf ./packages/cli ${chroot_dir}`)
+_exec(`cp -v -rf ./packages/cli/documentation ${chroot_dir}/.dotfiles`)
+_exec(`mkdir ${chroot_dir}/.config`)
+

@@ -99,7 +99,6 @@ export function IsValidInstallationCommand(
             options: validationOptions,
             validator: {
                 validate(value: any, args: ValidationArguments) {
-                    console.log(object);
                     return isNotEmpty(value);
                 },
             },

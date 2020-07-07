@@ -1,6 +1,25 @@
+// A; B    # Run A and then B, regardless of success of A
+// A && B  # Run B if and only if A succeeded
+// A || B  # Run B if and only if A failed
+// A &     # Run A in background.
+
 const path = require('path')
-const cmd = require('./cmd')
+const eol = require('eol')
+const { EOL } = require('os')
 const { dotfiles_validation } = require('@os-bootstrap/config-validator')
+
+const getIntroductionString = () => `
+#!/bin/sh
+#
+# Run the script with sh ~/osb.bash
+# You can also pass some arguments to the install script to set some these options:
+#   --skip-chsh: has the same behavior as setting CHSH to 'no'
+# For example:
+#   sh ~/osb.sh --unattended
+
+set -e
+
+`
 
 const isString = (obj) => typeof obj === 'string'
 
@@ -15,8 +34,6 @@ const getDefaultDestinationFile = (source) => {
     return ret.includes('.') ? `~/${ret}` : `~/.${ret}`
 }
 
-// - sudo $installation_command install zsh; chsh -s $(which zsh)
-// - $if_os_eq_darwin ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 const osb_eval = (str, data) => {
     if (!str.includes('$')) {
         return str
@@ -38,14 +55,6 @@ const osb_eval = (str, data) => {
 
     return str
 }
-
-// A; B    # Run A and then B, regardless of success of A
-// A && B  # Run B if and only if A succeeded
-// A || B  # Run B if and only if A failed
-// A &     # Run A in background.
-//
-// Command for running scripts in paralell
-// - parallel       -- GNU based
 
 function custom_dependency_parser(
     pack,
@@ -69,14 +78,14 @@ function custom_dependency_parser(
 const processors = {
     simples: function (dependencies, installation_command, os) {
         return dependencies.flat(10).map((pack) => {
-            return `sudo ${installation_command} install ${pack}`
+            return `${installation_command} install ${pack}`
         })
     },
     customs: function (dependencies, installation_command, os) {
         return dependencies.map((pack) => {
             const type_of_pack = typeof pack
             if (type_of_pack === 'string') {
-                return `sudo ${installation_command} install ${pack}`
+                return `${installation_command} install ${pack}`
             } else if (type_of_pack === 'object') {
                 return custom_dependency_parser(
                     pack,
@@ -151,37 +160,47 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
         })
 }
 
-function addParallel(value) {
-    const delimiter = cmd.is_parallel_installed() ? 'parallel ' : ''
-    if (value.startsWith('***')) {
-        return value
-    }
-    return `${delimiter}${value}`
-}
-
 function process_before_scripts(data) {
     return ('before_all' in data ? data['before_all'] : []).map((e) => {
         return osb_eval(e, data)
     })
 }
 
-module.exports = function (data) {
-    return [
-        '************** Before Script **************',
-        ...process_before_scripts(data),
-        '************** PACKAGES INSTALLATION **************',
-        ...process_pack_installation(data, 'simples'),
-        ...process_pack_installation(data, 'customs'),
-        '************** DOTFILES INSTALLATION **************',
-        ...process_dotfiles(
-            data.dotfiles,
-            data.core.os,
-            data.core.dotfiles_location
-        ),
-        '************** END OF INSTALLATION **************',
-        '**************       HAVE FUN      **************',
-    ]
-        .flat(10)
-        .filter((el) => typeof el !== 'undefined' && el.length > 0)
-        .map(addParallel)
+function packages(arr) {
+    return `
+packages=(
+${arr.map((e) => `    \"${e}\"`).join('\n')}
+)
+
+for (( i = 0; i < \${#packages[@]} ; i++ )); do
+    printf "\\n**** Running: %s  *****\\n\\n" "\${packages[$i]}"
+    eval "\${packages[$i]}" &
+done
+`
+}
+
+module.exports = function (data, dotfileLocation) {
+    return (
+        getIntroductionString() +
+        [
+            process_before_scripts(data)
+                .join(` && ${EOL}`)
+                .concat(` && ${EOL}`),
+            packages(
+                [
+                    ...process_pack_installation(data, 'simples'),
+                    ...process_pack_installation(data, 'customs'),
+                ].filter((el) => typeof el !== 'undefined' && el.length > 0)
+            ),
+            process_dotfiles(
+                data.dotfiles,
+                data.core.os,
+                data.core.dotfiles_location
+            )
+                .flat(10)
+                .join(';'),
+        ]
+            .join('')
+            .concat('\n')
+    )
 }
