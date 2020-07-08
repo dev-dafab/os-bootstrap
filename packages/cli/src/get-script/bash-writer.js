@@ -10,7 +10,9 @@ var singleton = {
         return subject.asObservable()
     },
     set: function (value) {
-        subject.next(value)
+        if (typeof value !== 'undefined') {
+            subject.next(value)
+        }
     },
 }
 

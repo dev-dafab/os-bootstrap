@@ -10,6 +10,8 @@ const { CONST } = require('../constants')
 
 const filter_output = (el) => typeof el !== 'undefined' && el.length > 0
 const isString = (obj) => typeof obj === 'string'
+const isConfigEntryEmpty = (data, entry) =>
+    typeof data[entry] === 'undefined' || data[entry].length === 0
 
 const getFullSourceFile = (source, dotfile_location) => {
     return path.isAbsolute(source)
@@ -92,6 +94,7 @@ function process_pack_installation(data, type) {
     if (typeof data.dependencies[type] === 'undefined') {
         return []
     }
+
     const dependencies = data.dependencies[type]
     const installation_command = data.core.installation_command
     const os = data.core.os
@@ -112,8 +115,11 @@ function generate_ln_command(dotfile_spec, dotfiles_location) {
     })
 }
 
-function process_dotfiles(dotfiles, os, dotfiles_location) {
-    const _dotfiles = dotfiles
+function process_dotfiles(data) {
+    if (isConfigEntryEmpty(data, 'dotfiles')) {
+        return undefined
+    }
+    const _dotfiles = data['dotfiles']
         .map((dotfile) => {
             const key_name = Object.keys(dotfile).pop()
             const dotfile_spec = dotfile[key_name]
@@ -155,7 +161,10 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
 }
 
 function process_before_scripts(data) {
-    const before_all_scripts = ('before_all' in data ? data['before_all'] : [])
+    if (isConfigEntryEmpty(data, 'before_all')) {
+        return undefined
+    }
+    const before_all_scripts = data['before_all']
         .map((e) => {
             return osb_eval(e, data)
         })
@@ -164,6 +173,9 @@ function process_before_scripts(data) {
 }
 
 function process_packages(data) {
+    if (isConfigEntryEmpty(data, 'dependencies')) {
+        return undefined
+    }
     const arr = [
         process_pack_installation(data, 'simples'),
         process_pack_installation(data, 'customs'),
@@ -174,16 +186,18 @@ function process_packages(data) {
 }
 
 module.exports = function (data, dotfileLocation) {
-    debugger
     bash_writer.set(CONST.BASH_INTRO_STR)
-    bash_writer.set(process_before_scripts(data))
-    bash_writer.set(process_packages(data))
+    const before_script = process_before_scripts(data)
+    bash_writer.set(before_script)
+    const packages = process_packages(data)
+    bash_writer.set(packages)
+    const dotfiles = process_dotfiles(data)
+    bash_writer.set(dotfiles)
     bash_writer.set(
-        process_dotfiles(
-            data.dotfiles,
-            data.core.os,
-            data.core.dotfiles_location
+        CONST.BASH_RUN_ALL_INSTALLATIONS(
+            typeof before_script !== 'undefined',
+            typeof packages !== 'undefined',
+            typeof dotfiles !== 'undefined'
         )
     )
-    bash_writer.set(CONST.BASH_RUN_ALL_INSTALLATIONS)
 }

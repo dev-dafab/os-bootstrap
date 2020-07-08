@@ -43,9 +43,13 @@ ${arr.map((e) => indent(`\"${e}\"`, 8)).join(EOL)}
     done
 }
 `,
-    BASH_RUN_ALL_INSTALLATIONS: `
-before_all &&
-install_packages;
-install_dotfiles
+    BASH_RUN_ALL_INSTALLATIONS: (
+        has_before_all,
+        has_packages,
+        has_dotfiles
+    ) => `
+${has_before_all ? 'before_all &&' : ''}
+${has_packages ? 'install_packages;' : ''}
+${has_dotfiles ? 'install_dotfiles' : ''}
 `,
 }

@@ -48,7 +48,6 @@ function read_config(location, configstore) {
 }
 
 module.exports.read = function read(location) {
-    debugger
     let _location = location
     let config_store = null
 

@@ -38,7 +38,10 @@ describe('CLI Options test', function () {
 })
 
 // [expected_bash_output, configFile, description, statuscode ]
-const best_cases = [['bash_1', 'osb_1', 'some description', 0]]
+const best_cases = [
+    ['bash_1', 'osb_1', 'some description', 0],
+    ['bash_2', 'osb_2', 'some description', 0],
+]
 
 describe('command:get-script', function () {
     test('command:get-script required config file not found on filesystem', async () => {

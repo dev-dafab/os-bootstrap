@@ -4,12 +4,6 @@ core:
   installation_command: apt
   shell: zsh
 
-dotfiles:
-  - osx:
-      files:
-        - source: osx/osx
-          destinations: ~/.osx
-
 dependencies:
   simples:
     - git
