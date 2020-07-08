@@ -40,7 +40,6 @@ module.exports.write = function write(location, data) {
 }
 
 module.exports.write_bash = function write(location = null, data) {
-    console.log(path.join(os.homedir(), 'osb.bash'))
     const file =
         location === null ? path.join(os.homedir(), 'osb.bash') : location
     return fs.writeFileSync(file, data, {
@@ -58,6 +57,7 @@ function read_config(location, configstore) {
 }
 
 module.exports.read = function read(location) {
+    debugger
     let _location = location
     let config_store = null
 
@@ -65,6 +65,10 @@ module.exports.read = function read(location) {
         config_store = new Configstore(osb_name)
         _location = config_store.path
     }
+
+    _location = path.isAbsolute(_location)
+        ? _location
+        : path.join(process.env.PWD, _location)
 
     if (!fs.existsSync(_location)) {
         throw new NoConfigurationFilePresents(

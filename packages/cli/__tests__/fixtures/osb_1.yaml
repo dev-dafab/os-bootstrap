@@ -1,0 +1,20 @@
+core:
+  os: darwin
+  dotfiles_location: ./configs
+  installation_command: brew
+  shell: zsh
+
+before_all:
+  - sudo $installation_command install zsh; chsh -s $(which zsh)
+  - $if_os_eq_darwin ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+dotfiles:
+  - osx:
+      os: "darwin"
+      files:
+        - source: osx/osx
+          destinations: ~/.osx
+
+dependencies:
+  simples:
+    - git

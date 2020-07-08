@@ -14,8 +14,7 @@ program
     .option('-d, --dotfile-location <dotfile_location>', 'dotfile location')
     .option('-xdg, --xdg', 'use XDG config', false)
     .action(async (options) => {
-        const config_file = await wizard(options)
-        console.log(config_file)
+        await wizard(options)
     })
 
 program
@@ -26,7 +25,7 @@ program
     )
     .option('-xdg, --xdg', 'use XDG config', true)
     .action(async (options) => {
-        process.stdout.pipe(await get_script(options))
+        await get_script(options)
     })
 
 program.on('--help', () => {

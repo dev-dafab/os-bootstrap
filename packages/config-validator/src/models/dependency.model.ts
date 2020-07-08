@@ -25,7 +25,6 @@ export class Dependency  {
 
   simples?: string[] | string[][];
 
-  @ValidateNested()
   @Type(() => CustomDependency)
   customs?: CustomDependency[];
 }

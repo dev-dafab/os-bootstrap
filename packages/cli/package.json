@@ -58,6 +58,7 @@
     "clui": "^0.3.6",
     "eol": "^0.9.1",
     "figlet": "^1.4.0",
+    "indent-string": "^4.0.0",
     "inquirer": "^7.1.0",
     "rxjs": "^6.6.0"
   },
@@ -74,7 +75,9 @@
     "shelljs": "^0.8.4",
     "which": "^2.0.2"
   },
-  "assets": ["./node_modules/figlet/fonts/*"],
+  "assets": [
+    "./node_modules/figlet/fonts/*"
+  ],
   "pkg": {
     "assets": "node_modules/figlet/fonts/*"
   }

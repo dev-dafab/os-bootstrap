@@ -4,23 +4,11 @@
 // A &     # Run A in background.
 
 const path = require('path')
-const eol = require('eol')
-const { EOL } = require('os')
 const { dotfiles_validation } = require('@os-bootstrap/config-validator')
+const bash_writer = require('./bash-writer')
+const { CONST } = require('../constants')
 
-const getIntroductionString = () => `
-#!/bin/sh
-#
-# Run the script with sh ~/osb.bash
-# You can also pass some arguments to the install script to set some these options:
-#   --skip-chsh: has the same behavior as setting CHSH to 'no'
-# For example:
-#   sh ~/osb.sh --unattended
-
-set -e
-
-`
-
+const filter_output = (el) => typeof el !== 'undefined' && el.length > 0
 const isString = (obj) => typeof obj === 'string'
 
 const getFullSourceFile = (source, dotfile_location) => {
@@ -101,6 +89,9 @@ const processors = {
 }
 
 function process_pack_installation(data, type) {
+    if (typeof data.dependencies[type] === 'undefined') {
+        return []
+    }
     const dependencies = data.dependencies[type]
     const installation_command = data.core.installation_command
     const os = data.core.os
@@ -122,7 +113,7 @@ function generate_ln_command(dotfile_spec, dotfiles_location) {
 }
 
 function process_dotfiles(dotfiles, os, dotfiles_location) {
-    return dotfiles
+    const _dotfiles = dotfiles
         .map((dotfile) => {
             const key_name = Object.keys(dotfile).pop()
             const dotfile_spec = dotfile[key_name]
@@ -158,49 +149,41 @@ function process_dotfiles(dotfiles, os, dotfiles_location) {
             }
             return generate_ln_command(dotfile_spec, dotfiles_location)
         })
+        .flat(10)
+        .filter(filter_output)
+    return CONST.BASH_DOTFILES_INSTALL(_dotfiles)
 }
 
 function process_before_scripts(data) {
-    return ('before_all' in data ? data['before_all'] : []).map((e) => {
-        return osb_eval(e, data)
-    })
+    const before_all_scripts = ('before_all' in data ? data['before_all'] : [])
+        .map((e) => {
+            return osb_eval(e, data)
+        })
+        .filter(filter_output)
+    return CONST.BASH_BEFORE_ALL(before_all_scripts)
 }
 
-function packages(arr) {
-    return `
-packages=(
-${arr.map((e) => `    \"${e}\"`).join('\n')}
-)
-
-for (( i = 0; i < \${#packages[@]} ; i++ )); do
-    printf "\\n**** Running: %s  *****\\n\\n" "\${packages[$i]}"
-    eval "\${packages[$i]}" &
-done
-`
+function process_packages(data) {
+    const arr = [
+        process_pack_installation(data, 'simples'),
+        process_pack_installation(data, 'customs'),
+    ]
+        .flat(10)
+        .filter(filter_output)
+    return CONST.BASH_PACKAGES_FOR_LOOP(arr)
 }
 
 module.exports = function (data, dotfileLocation) {
-    return (
-        getIntroductionString() +
-        [
-            process_before_scripts(data)
-                .join(` && ${EOL}`)
-                .concat(` && ${EOL}`),
-            packages(
-                [
-                    ...process_pack_installation(data, 'simples'),
-                    ...process_pack_installation(data, 'customs'),
-                ].filter((el) => typeof el !== 'undefined' && el.length > 0)
-            ),
-            process_dotfiles(
-                data.dotfiles,
-                data.core.os,
-                data.core.dotfiles_location
-            )
-                .flat(10)
-                .join(';'),
-        ]
-            .join('')
-            .concat('\n')
+    debugger
+    bash_writer.set(CONST.BASH_INTRO_STR)
+    bash_writer.set(process_before_scripts(data))
+    bash_writer.set(process_packages(data))
+    bash_writer.set(
+        process_dotfiles(
+            data.dotfiles,
+            data.core.os,
+            data.core.dotfiles_location
+        )
     )
+    bash_writer.set(CONST.BASH_RUN_ALL_INSTALLATIONS)
 }
