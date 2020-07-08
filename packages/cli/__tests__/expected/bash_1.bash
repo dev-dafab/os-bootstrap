@@ -7,3 +7,36 @@
 #   sh ~/osb.sh --unattended
 
 set -e
+
+
+function before_all() {
+
+}
+
+
+function install_packages() {
+    local packages=(
+        "brew install git"
+    )
+    for (( i = 0; i < ${#packages[@]} ; i++ )); do
+        printf "**** Running: %s  *****\n" "${packages[$i]}"
+        eval "${packages[$i]}" &
+    done
+}
+
+
+function install_dotfiles() {
+    local dotfiles=(
+        "ln -s /home/dev/Projekts/os-bootstrap/packages/cli/configs/osx/osx ~/.osx"
+    )
+    for (( i = 0; i < ${#dotfiles[@]} ; i++ )); do
+        printf "**** Running: %s  *****\n" "${dotfiles[$i]}"
+        eval "${dotfiles[$i]}" &
+    done
+}
+
+
+before_all &&
+install_packages;
+install_dotfiles
+

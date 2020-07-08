@@ -4,7 +4,8 @@ const { program } = require('commander'),
     help_message = require('./help.message'),
     { version } = require('../package'),
     wizard = require('./wizard'),
-    get_script = require('./get-script')
+    get_script = require('./get-script'),
+    { error_service } = require('./error')
 
 program.version(version)
 
@@ -30,6 +31,12 @@ program
 
 program.on('--help', () => {
     console.log(help_message)
+})
+
+const subscription = error_service.get().subscribe((error) => {
+    console.error(error.message)
+    subscription.unsubscribe()
+    process.exitCode = error.code
 })
 
 program.parse(process.argv)

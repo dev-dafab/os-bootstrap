@@ -6,8 +6,7 @@ const indent = (str, length = 4) => indentString(str, length)
 module.exports.CONST = {
     DEFAULT_DOTFILES_DIR: `${os.homedir()}/.dotfiles`,
     DEFAULT_OSB_CONFIG_DIR: `${os.homedir()}/.config/osb`,
-    BASH_INTRO_STR: `
-#!/usr/bin/env bash
+    BASH_INTRO_STR: `#!/usr/bin/env bash
 #
 # Run the script with sh ~/osb.bash
 # You can also pass some arguments to the install script to set some these options:

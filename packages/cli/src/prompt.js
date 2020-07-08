@@ -3,8 +3,18 @@ const clear = require('clear')
 const { Subject, iif } = require('rxjs')
 const { tap, map, mergeMap } = require('rxjs/operators')
 
-const errorCallback = console.log
-const completedCallback = console.log
+const errorCallback = (
+    errorCb = (err) => {
+        throw err
+    }
+) => (error) => {
+    errorCb(error)
+}
+
+const completedCallback = (prompt) => {
+    prompt.ui.process.complete()
+    console.log('completed')
+}
 
 module.exports = function (questions, successCallback) {
     const prompts = new Subject()
@@ -14,11 +24,8 @@ module.exports = function (questions, successCallback) {
         prompts.next(question)
     })
 
-    const observe = prompt.ui.process.asObservable()
-    observe
+    prompt.ui.process
+        .asObservable()
         .pipe(tap(console.log))
-        .subscribe(successCallback, errorCallback, () => {
-            console.log('terminate')
-            prompt.ui.process.complete()
-        })
+        .subscribe(successCallback, errorCallback, completedCallback(prompt))
 }

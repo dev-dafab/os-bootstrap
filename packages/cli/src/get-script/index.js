@@ -4,6 +4,7 @@ const parseOptions = require('../parse-options'),
     os = require('os')
 generate_bash_script = require('./script-generator')
 const bash_writer = require('./bash-writer')
+const { error_service } = require('../error')
 
 bash_writer.get().subscribe((value) => {
     console.log(value)
@@ -16,7 +17,6 @@ module.exports = async (options) => {
         const validatedData = await validate(data)
         await generate_bash_script(validatedData, opts)
     } catch (error) {
-        console.log(error)
-        process.exit(255)
+        error_service.set(error)
     }
 }

@@ -1,5 +1,6 @@
 const shelljs = require('shelljs')
 const help_message = require('../src/help.message')
+const error = require('../src/error')
 
 const exec = (options) =>
     shelljs.exec(`node src/index.js ${options}`, { silent: true })
@@ -7,6 +8,12 @@ const exec = (options) =>
 const getConfigFile = (file) => `__tests__/fixtures/${file}.yaml`
 const readBashFile = (file) =>
     shelljs.exec(`cat __tests__/expected/${file}.bash`, { silent: true }).stdout
+
+const getStrArray = (str) => {
+    return str
+        .split('\n')
+        .filter((el) => typeof el !== 'undefined' && el.length > 0)
+}
 
 describe('CLI Options test', function () {
     test('wrong option or command provided', async () => {
@@ -33,7 +40,26 @@ describe('CLI Options test', function () {
 // [expected_bash_output, configFile, description, statuscode ]
 const best_cases = [['bash_1', 'osb_1', 'some description', 0]]
 
-describe('command:get-script best-cases', function () {
+describe('command:get-script', function () {
+    test('command:get-script required config file not found on filesystem', async () => {
+        const { stderr, code } = exec(
+            `get-script --config-file /file-not-found`
+        )
+        expect(code).toBe(error.error_code.NoConfigurationFilePresentsCode)
+        expect(stderr).toContain('no config file')
+        expect(stderr).toContain('presents on the filesystem')
+    })
+
+    test('command:get-script empty config file ', async () => {
+        const { stderr, code } = exec(
+            `get-script --config-file ${getConfigFile('empty_config_file')}`
+        )
+        expect(code).toBe(error.error_code.EmptyConfigurationFileCode)
+        expect(stderr).toContain('empty')
+        expect(stderr).toContain('please first run the wizard command')
+        expect(stderr).toContain('osb wizard')
+    })
+
     test.each(best_cases)(
         'should return bash %s when config file %s: %s',
         async (bash_output, configFile, description, statuscode) => {
@@ -41,7 +67,9 @@ describe('command:get-script best-cases', function () {
                 `get-script --config-file ${getConfigFile(configFile)}`
             )
             expect(code).toBe(statuscode)
-            expect(stdout).toContain(readBashFile(bash_output))
+            const stdoutArr = getStrArray(stdout)
+            const expectedArray = getStrArray(readBashFile(bash_output))
+            expect(stdoutArr).toEqual(expect.arrayContaining(expectedArray))
         }
     )
 })

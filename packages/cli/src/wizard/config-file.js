@@ -2,6 +2,10 @@
     (osb_name = require('../../package.json').name),
     (fs = require('fs')),
     (os = require('os')),
+    ({
+        EmptyConfigurationFile,
+        NoConfigurationFilePresents,
+    } = require('../error')),
     (path = require('path')),
     (yaml = require('js-yaml'))
 
@@ -12,19 +16,6 @@ function isEmptyConfig(content = {}) {
         return true
     }
 }
-
-function NoConfigurationFilePresents(message) {
-    this.message = message
-    this.name = 'NoConfigurationFilePresent'
-}
-
-function EmptyConfigurationFile(message) {
-    this.message = message
-    this.name = 'EmptyConfigurationFile'
-}
-
-module.exports.NoConfigurationFilePresent = NoConfigurationFilePresents
-module.exports.EmptyConfigurationFile = EmptyConfigurationFile
 
 module.exports.write = function write(location, data) {
     if (location === null) {
@@ -71,16 +62,12 @@ module.exports.read = function read(location) {
         : path.join(process.env.PWD, _location)
 
     if (!fs.existsSync(_location)) {
-        throw new NoConfigurationFilePresents(
-            `config file ${_location} presents. please first run the wizard`
-        )
+        throw new NoConfigurationFilePresents(_location)
     }
 
     const config_file_content = read_config(_location, config_store)
     if (isEmptyConfig(config_file_content)) {
-        throw new EmptyConfigurationFile(
-            `no ${config_store.path} empty. please first run the wizard`
-        )
+        throw new EmptyConfigurationFile(_location)
     }
     return config_file_content
 }
