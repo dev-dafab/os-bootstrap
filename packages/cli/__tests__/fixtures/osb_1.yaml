@@ -1,6 +1,7 @@
+# dotfiles: dotfiles location should be provided in order to process dotfiles link
 core:
   os: linux
-  dotfiles_location: ./configs
+  dotfiles_location: ./wrong-location
   installation_command: apt
   shell: zsh
 

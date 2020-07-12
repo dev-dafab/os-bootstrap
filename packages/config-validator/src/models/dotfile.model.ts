@@ -1,21 +1,27 @@
+import 'reflect-metadata'
 import {ValidateNested, MinLength} from "class-validator";
+import "reflect-metadata";
+import {Transform, Type, Expose} from "class-transformer";
+import { OS } from "./os.model";
 
-export class File {
+export interface DotfileSpecAbstract {
+}
+
+export class File implements DotfileSpecAbstract {
   source: string;
-  @MinLength(1)
   destinations: string | string[];
 }
 
-export class DotfileSpec {
-  os?: string[];
+export class DotfileSpec implements DotfileSpecAbstract{
+  os?: string | string[];
+  @Type(() => File)
   files?: File[];
 }
 
-export class OnlySourcesSpec {
+export class OnlySourcesSpec implements DotfileSpecAbstract {
   source: string | string[];
 }
 
-type DotfileType = DotfileSpec | OnlySourcesSpec | File;
 export class Dotfile {
-  [key: string]: DotfileType;
+  [key: string]: DotfileSpec | OnlySourcesSpec | File | File[];
 }

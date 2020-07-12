@@ -1,0 +1,91 @@
+{
+    "core": {
+        "os": "darwin",
+        "dotfiles_location": "./configs",
+        "installation_command": "brew",
+        "shell": "zsh"
+    },
+    "before_all": [
+        "sudo $installation_command install zsh; chsh -s $(which zsh)",
+        "$if_os_eq_darwin ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
+    ],
+    "before_all_installation": ["$installation_command update"],
+    "dotfiles": [
+        {
+            "osx": {
+                "os": "darwin",
+                "files": [{ "source": "osx/osx", "destinations": "~/.osx" }]
+            },
+            "foo": {
+                "source": "fooo"
+            }
+        }
+    ],
+    "dependencies": {
+        "simples": [
+            ["git-core", "git", "git-extras", "git-flow", "git-lfs", "hub"],
+            ["docker", "docker-compose"],
+            ["ssh", "sshfs", "ssh-import-id", "ssh-tools"],
+            ["shellcheck", "bats"],
+            ["mysql-client", "mysql-server", "mysql-common"],
+            "curl",
+            "wget",
+            "httpie",
+            "tree",
+            "stow",
+            "postgresql",
+            "tmux",
+            "tmuxinator"
+        ],
+        "customs": [
+            {
+                "pbcopy": {
+                    "os": [
+                        {
+                            "name": "darwin",
+                            "command": "custom_install_command install pbcopy"
+                        }
+                    ]
+                }
+            },
+            {
+                "virtualbox": {
+                    "os": [
+                        {
+                            "name": "darwin",
+                            "command": "brew cask install --appdir='/Applications' virtualbox"
+                        }
+                    ]
+                }
+            },
+            {
+                "slack": {
+                    "os": [
+                        {
+                            "name": "darwin",
+                            "command": "brew cask install --appdir='/Applications' slack"
+                        }
+                    ]
+                }
+            },
+            {
+                "pure-prompt": {
+                    "os": [
+                        {
+                            "name": "linux",
+                            "command": "npm install -g pure-prompt"
+                        }
+                    ]
+                }
+            },
+            {
+                "java": {
+                    "os": [
+                        { "name": "linux", "command": "apt-get install java" },
+                        { "name": "darwin", "command": "brew install java" }
+                    ]
+                }
+            }
+        ]
+    }
+}

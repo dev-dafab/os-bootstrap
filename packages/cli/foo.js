@@ -1,3 +1,12 @@
-const eol = require('eol')
+const { Readable } = require('stream')
 
-console.log(eol.auto('lasjdlkfjlas'))
+const inStream = new Readable({
+    read() {},
+})
+
+inStream.push('ABCDEFGHIJKLM')
+inStream.push('NOPQRSTUVWXYZ')
+
+inStream.push(null) // No more data
+
+inStream.pipe(process.stdout)

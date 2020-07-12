@@ -1,0 +1,114 @@
+[
+    {
+        "osx": {
+            "os": ["darwin"],
+            "files": [{ "source": "osx/osx", "destinations": ["~/.osx"] }]
+        }
+    },
+    {
+        "xinitrc": {
+            "os": ["linux"],
+            "files": [
+                {
+                    "source": "xresources/xinitrc.sh",
+                    "destinations": ["~/.xinitrc"]
+                }
+            ]
+        }
+    },
+    {
+        "xresources": {
+            "os": ["linux"],
+            "files": [
+                {
+                    "source": "xresources/Xresources",
+                    "destinations": ["~/.Xresources"]
+                }
+            ]
+        }
+    },
+    {
+        "vim": {
+            "os": ["linux", "darwin"],
+            "files": [
+                {
+                    "source": "vim",
+                    "destinations": ["~/.config/nvim", "~/.vim"]
+                },
+                { "source": "vim/init.vim", "destinations": ["~/.vimrc"] }
+            ]
+        }
+    },
+    {
+        "vifm": {
+            "os": ["linux", "darwin"],
+            "files": [{ "source": "vifm", "destinations": ["~/.config/vifm"] }]
+        }
+    },
+    {
+        "git gitconfig": {
+            "files": [
+                { "source": "git/gitconfig", "destinations": ["~/.gitconfig"] }
+            ],
+            "os": ["*"]
+        }
+    },
+    {
+        "git gitignore": {
+            "os": ["*"],
+            "files": [
+                {
+                    "source": "git/gitignore_global",
+                    "destinations": ["~/.gitignore_global"]
+                }
+            ]
+        }
+    },
+    {
+        "zsh": {
+            "files": [
+                { "source": "zsh/zshrc.zsh", "destinations": ["~/.zshrc"] },
+                {
+                    "source": "zsh/zsh-custom-plugins",
+                    "destinations": ["~/.zsh-custom-plugins"]
+                }
+            ],
+            "os": ["*"]
+        }
+    },
+    {
+        "tmux": {
+            "files": [
+                {
+                    "source": "tmux/tmux.conf",
+                    "destinations": ["~/.tmux.conf"]
+                },
+                {
+                    "source": "tmux/tmux-config",
+                    "destinations": ["~/.tmux/plugins/tmux-config"]
+                }
+            ],
+            "os": ["*"]
+        }
+    },
+    {
+        "fzf": {
+            "os": ["*"],
+            "files": [
+                { "source": "fzf/fzf.zsh", "destinations": ["~/fzf.zsh"] },
+                {
+                    "source": "fzf/fzf.config.zsh",
+                    "destinations": ["~/fzf.config.zsh"]
+                }
+            ]
+        }
+    },
+    {
+        "curl": {
+            "os": ["*"],
+            "files": [
+                { "source": "curl/curlrc", "destinations": ["~/.curlrc"] }
+            ]
+        }
+    }
+]

@@ -2,12 +2,9 @@ const { Subject } = require('rxjs')
 
 const NoConfigurationFilePresentsCode = 4
 const EmptyConfigurationFileCode = 5
+const DotfileNotPresentsCode = 6
 
-function initSubject() {
-    return new Subject()
-}
-
-const subject = Object.freeze(initSubject())
+const subject = Object.freeze(new Subject())
 var singleton = {
     get: function () {
         return subject.asObservable()
@@ -20,6 +17,7 @@ var singleton = {
 const error_service = Object.freeze(singleton)
 
 class OsbError extends Error {}
+class OsbWarning extends Error {}
 
 class NoConfigurationFilePresents extends OsbError {
     constructor(file) {
@@ -39,13 +37,31 @@ class EmptyConfigurationFile extends OsbError {
     }
 }
 
+class DotfileNotPresents extends OsbWarning {
+    constructor(file) {
+        super(
+            `\n Dotfiles ${file} directory . not presents on the system \n
+ Please provide an existing dotfiles locations.
+ Defaults:
+    - dotfiles contains osb.yaml / os-bootstrap.yaml
+    - $XDG-CONFIG/osb/dotfiles
+    - $HOME/.dotfiles
+`
+        )
+        this.code = DotfileNotPresentsCode
+    }
+}
+
 module.exports = {
     error_service,
     OsbError,
+    OsbWarning,
     EmptyConfigurationFile,
     NoConfigurationFilePresents,
+    DotfileNotPresents,
     error_code: {
         NoConfigurationFilePresentsCode,
         EmptyConfigurationFileCode,
+        DotfileNotPresentsCode,
     },
 }

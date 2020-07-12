@@ -1,4 +1,4 @@
-export { validate, dotfiles_validation } from './validate'
+export { validate } from './validate'
 export { Config } from './models/config.model'
 export { Core } from './models/core.model'
 export { Dependency } from './models/dependency.model'

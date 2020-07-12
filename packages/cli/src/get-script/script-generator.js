@@ -7,44 +7,15 @@ const path = require('path')
 const { dotfiles_validation } = require('@os-bootstrap/config-validator')
 const bash_writer = require('./bash-writer')
 const { CONST } = require('../constants')
-
-const filter_output = (el) => typeof el !== 'undefined' && el.length > 0
-const isString = (obj) => typeof obj === 'string'
-const isConfigEntryEmpty = (data, entry) =>
-    typeof data[entry] === 'undefined' || data[entry].length === 0
-
-const getFullSourceFile = (source, dotfile_location) => {
-    return path.isAbsolute(source)
-        ? source
-        : path.join(process.env.PWD, dotfile_location, source)
-}
-
-const getDefaultDestinationFile = (source) => {
-    const ret = source.split('/').pop()
-    return ret.includes('.') ? `~/${ret}` : `~/.${ret}`
-}
-
-const osb_eval = (str, data) => {
-    if (!str.includes('$')) {
-        return str
-    }
-
-    if (str.includes('$installation_command')) {
-        return str.replace(
-            '$installation_command',
-            data['core']['installation_command']
-        )
-    }
-
-    if (str.includes('eq') && str.includes('$if')) {
-        const str_parts = str.split(' ').shift().split('_')
-        return data['core'][str_parts[1]] === str_parts.pop()
-            ? `${str.split(str.split(' ').shift()).pop()}`.trim()
-            : ''
-    }
-
-    return str
-}
+const {
+    getDefaultDestinationFile,
+    getFullSourceFile,
+    isString,
+    isConfigEntryEmpty,
+    filter_output,
+} = require('./helper')
+const osb_eval = require('./osb-eval')
+const process_dotfiles = require('./dotfiles')
 
 function custom_dependency_parser(
     pack,
@@ -101,65 +72,6 @@ function process_pack_installation(data, type) {
     return processors[type](dependencies, installation_command, os)
 }
 
-function generate_ln_command(dotfile_spec, dotfiles_location) {
-    return dotfile_spec.files.map((file) => {
-        return (isString(file.destinations)
-            ? [file.destinations]
-            : file.destinations
-        ).map((destination) => {
-            return `ln -s ${getFullSourceFile(
-                file.source,
-                dotfiles_location
-            )} ${destination}`
-        })
-    })
-}
-
-function process_dotfiles(data) {
-    if (isConfigEntryEmpty(data, 'dotfiles')) {
-        return undefined
-    }
-    const _dotfiles = data['dotfiles']
-        .map((dotfile) => {
-            const key_name = Object.keys(dotfile).pop()
-            const dotfile_spec = dotfile[key_name]
-            if (dotfiles_validation.isOnlySourcesSpec(dotfile)) {
-                return (isString(dotfile_spec['source'])
-                    ? [dotfile_spec['source']]
-                    : dotfile_spec['source']
-                ).reduce(
-                    (acc, source) => {
-                        acc[key_name].files.push({
-                            source,
-                            destinations: [getDefaultDestinationFile(source)],
-                        })
-                        return acc
-                    },
-                    { [key_name]: { files: [] } }
-                )
-            }
-            return dotfile
-        })
-        .map((dotfile) => {
-            const dotfile_name = Object.keys(dotfile).pop()
-            const dotfile_spec = dotfile[dotfile_name]
-            if ('os' in dotfile_spec) {
-                const oses =
-                    typeof dotfile_spec['os'] === 'string'
-                        ? [dotfile_spec['os']]
-                        : dotfile_spec['os']
-                if (oses.includes(os)) {
-                    return generate_ln_command(dotfile_spec, dotfiles_location)
-                }
-                return ''
-            }
-            return generate_ln_command(dotfile_spec, dotfiles_location)
-        })
-        .flat(10)
-        .filter(filter_output)
-    return CONST.BASH_DOTFILES_INSTALL(_dotfiles)
-}
-
 function process_before_scripts(data) {
     if (isConfigEntryEmpty(data, 'before_all')) {
         return undefined
@@ -200,4 +112,6 @@ module.exports = function (data, dotfileLocation) {
             typeof dotfiles !== 'undefined'
         )
     )
+
+    bash_writer.set('EOF')
 }

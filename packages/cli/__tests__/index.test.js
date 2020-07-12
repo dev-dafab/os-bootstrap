@@ -6,8 +6,14 @@ const exec = (options) =>
     shelljs.exec(`node src/index.js ${options}`, { silent: true })
 
 const getConfigFile = (file) => `__tests__/fixtures/${file}.yaml`
+
 const readBashFile = (file) =>
     shelljs.exec(`cat __tests__/expected/${file}.bash`, { silent: true }).stdout
+
+const getTestDescrition = (file) =>
+    shelljs
+        .exec(`__tests__/fixtures/${file}.yaml`, { silent: true })
+        .stdout.split('\n')[0]
 
 const getStrArray = (str) => {
     return str
@@ -39,8 +45,9 @@ describe('CLI Options test', function () {
 
 // [expected_bash_output, configFile, description, statuscode ]
 const best_cases = [
-    ['bash_1', 'osb_1', 'some description', 0],
-    ['bash_2', 'osb_2', 'some description', 0],
+    ['bash_1', 'osb_1', getTestDescrition('osb_1'), 0],
+    ['bash_2', 'osb_2', getTestDescrition('osb_2'), 0],
+    ['bash_3', 'osb_3', getTestDescrition('osb_3'), 0],
 ]
 
 describe('command:get-script', function () {
@@ -72,6 +79,8 @@ describe('command:get-script', function () {
             expect(code).toBe(statuscode)
             const stdoutArr = getStrArray(stdout)
             const expectedArray = getStrArray(readBashFile(bash_output))
+            expect(stdoutArr.length).toBeGreaterThan(0)
+            expect(expectedArray.length).toBeGreaterThan(0)
             expect(stdoutArr).toEqual(expect.arrayContaining(expectedArray))
         }
     )

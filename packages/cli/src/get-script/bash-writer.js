@@ -1,10 +1,10 @@
 const { Subject } = require('rxjs')
+const { takeWhile } = require('rxjs/operators')
 
-function initSubject() {
-    return new Subject()
-}
+const subject = Object.freeze(new Subject())
 
-const subject = Object.freeze(initSubject())
+function write_to_stdout(value) {}
+
 var singleton = {
     get: function () {
         return subject.asObservable()

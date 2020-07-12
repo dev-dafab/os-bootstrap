@@ -8,7 +8,6 @@
 
 set -e
 
-
 function install_packages() {
     local packages=(
         "apt install git"
@@ -20,7 +19,5 @@ function install_packages() {
 }
 
 
-
 install_packages;
-
 

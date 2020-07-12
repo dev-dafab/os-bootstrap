@@ -54,10 +54,8 @@ dotfiles:
           - ~/.gitconfig
 
   - git gitignore:
-      files:
-        - source: git/gitignore_global
-          destinations:
-            - ~/.gitignore_global
+      source: git/gitignore_global
+      destinations: ~/.gitignore_global
 
   - zsh:
       files:

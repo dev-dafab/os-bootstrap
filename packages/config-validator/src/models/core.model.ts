@@ -6,6 +6,7 @@ import {
 import { OS } from './os.model'
 import { IsNotEmpty, IsNotEmptyObject, IsDefined, ValidateIf, ValidateNested } from 'class-validator';
 import { InstallationCommand } from './install-command.model';
+import {Type} from "class-transformer";
 
 export class Core {
     @IsSupportedOS()

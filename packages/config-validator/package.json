@@ -25,7 +25,6 @@
   },
   "private": false,
   "scripts": {
-    "test:this": "jest --coverage=true",
     "test:this": "jest --coverage --watchAll --testPathPattern=__tests__",
     "check": "gts check",
     "tsc": "tsc",
@@ -58,6 +57,7 @@
   "dependencies": {
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
+    "es6-shim": "^0.35.5",
     "node-ts": "^5.0.6",
     "reflect-metadata": "^0.1.13"
   },

@@ -1,0 +1,18 @@
+# dotfiles: installed base on os: only linux dotfiles will be linked
+core:
+  os: linux
+  dotfiles_location: ./configs
+  installation_command: apt
+  shell: zsh
+
+dotfiles:
+  - osx:
+      os: "darwin"
+      files:
+        - source: osx/osx
+          destinations: ~/.osx
+  - osx:
+      os: "linux"
+      files:
+        - source: init/initrc
+          destinations: ~/.initrc
