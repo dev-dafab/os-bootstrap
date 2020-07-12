@@ -5,8 +5,6 @@ const {
     filter_output,
 } = require('./helper')
 
-const { dotfiles_validation } = require('@os-bootstrap/config-validator')
-
 const generate_ln_command = (dotfiles_location) => (dotfile) => {
     const dotfile_spec = Object.entries(dotfile).pop().pop()
     return dotfile_spec.files.map((file) => {
