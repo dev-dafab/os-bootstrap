@@ -81,7 +81,6 @@ const transformOs = (dotfile: Dotfile): Dotfile => {
 
 const transformFiles = (dotfile: Dotfile): Dotfile => {
     const key = Object.keys(dotfile).pop()
-    if (key === 'git gitignore') debugger
     if (isOnlySourceSpec(dotfile)) {
         const ret = (dotfile[key] as OnlySourcesSpec).source
         const onlySourceSpecs = toArray(ret)
