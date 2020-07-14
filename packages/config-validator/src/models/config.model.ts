@@ -2,14 +2,13 @@ import { ValidateNested, IsNotEmptyObject, IsDefined } from 'class-validator'
 import { Core } from './core.model'
 import {
     Dotfile,
-    DotfileSpecAbstract,
     DotfileSpec,
     OnlySourcesSpec,
     File,
 } from './dotfile.model'
 import { Dependency } from './dependency.model'
 import { Type, Transform } from 'class-transformer'
-import { isArray, isString, isObject } from 'util'
+import { isArray, isString } from 'util'
 
 const getDefaultDestinationFile = (source) => {
     const ret = source.split('/').pop()
@@ -18,7 +17,7 @@ const getDefaultDestinationFile = (source) => {
 }
 
 const toArray = (value: string | string[]) => {
-    return Array.isArray(value) ? value : [value]
+    return isArray(value) ? value : [value]
 }
 
 const isOnlySourceSpec = (value: Object) => {
