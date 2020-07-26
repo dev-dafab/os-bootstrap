@@ -7,25 +7,25 @@ const bash_writer = require('./bash-writer')
 const { CONST } = require('../constants')
 const { isConfigEntryEmpty, filter_output } = require('./helper')
 
-function run(data) {
-    const configs = [
-        { intro: () => process_before_scripts },
-        { before_all: require('./before-all') },
-        { dependencies: require('./packages') },
-        { dotfiles: require('./dotfiles') },
-    ]
+function run (data) {
+  const configs = [
+    { intro: () => process_before_scripts },
+    { before_all: require('./before-all') },
+    { dependencies: require('./packages') },
+    { dotfiles: require('./dotfiles') }
+  ]
 
-    configs
-        .filter((e) => {
-            return data[Object.entries(e).pop().shift()] !== undefined
-        })
-        .map((value) => Object.entries(e).pop().pop()(data))
-        .map(bash_writer)
+  configs
+    .filter((e) => {
+      return data[Object.entries(e).pop().shift()] !== undefined
+    })
+    .map((value) => Object.entries(e).pop().pop()(data))
+    .map(bash_writer)
 }
 
 module.exports = function (data) {
-    run(data)
-    /*
+  run(data)
+  /*
 bash_writer.set(CONST.BASH_INTRO_STR)
    const before_script = process_before_scripts(data)
    bash_writer.set(before_script)

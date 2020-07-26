@@ -1,4 +1,4 @@
-function OsBootstrap() {}
+function OsBootstrap () {}
 
 // list all installed packages
 // TODO

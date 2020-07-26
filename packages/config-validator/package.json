@@ -10,19 +10,6 @@
     "!.",
     "build"
   ],
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
-  },
-  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
-  },
-  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "private": false,
   "scripts": {
     "test:this": "jest --coverage --watchAll --testPathPattern=__tests__",
@@ -39,6 +26,13 @@
     "start": "nodemon",
     "debug-test": "node-ts --inspect-brk jest -i"
   },
+  "dependencies": {
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.2",
+    "es6-shim": "^0.35.5",
+    "node-ts": "^5.0.6",
+    "reflect-metadata": "^0.1.13"
+  },
   "devDependencies": {
     "@types/jest": "^25.2.3",
     "@types/js-yaml": "^3.12.4",
@@ -50,16 +44,23 @@
     "jsdoc": "^3.6.4",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "standard": "^14.3.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5",
     "yaml-schema-validator": "^1.2.2"
   },
-  "dependencies": {
-    "class-transformer": "^0.2.3",
-    "class-validator": "^0.12.2",
-    "es6-shim": "^0.35.5",
-    "node-ts": "^5.0.6",
-    "reflect-metadata": "^0.1.13"
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99"
 }

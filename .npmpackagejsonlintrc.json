@@ -1,0 +1,21 @@
+{
+  "extends": "npm-package-json-lint-config-default",
+  "rules": {
+    "require-peerDependencies": "off",
+    "valid-values-engines": "off",
+    "prefer-property-order": ["error", [
+      "name",
+      "version",
+      "description",
+      "main",
+      "private",
+      "scripts",
+      "dependencies",
+      "devDependencies",
+      "author",
+      "license",
+      "bugs",
+      "homepage"
+    ]]
+  }
+}

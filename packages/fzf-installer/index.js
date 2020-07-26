@@ -12,10 +12,10 @@ function setup() {
 setup
 `
 
-function parse(options) {
-    return script_for_fzf_installation.replace('option', options.toString())
+function parse (options) {
+  return script_for_fzf_installation.replace('option', options.toString())
 }
 
 module.exports = function (answers) {
-    return answers.WithFZF ? parse(answers.FZFInstallationOptions) : undefined
+  return answers.WithFZF ? parse(answers.FZFInstallationOptions) : undefined
 }

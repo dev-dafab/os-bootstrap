@@ -4,9 +4,9 @@ const indentString = require('indent-string')
 const indent = (str, length = 4) => indentString(str, length)
 
 module.exports.CONST = {
-    DEFAULT_DOTFILES_DIR: `${os.homedir()}/.dotfiles`,
-    DEFAULT_OSB_CONFIG_DIR: `${os.homedir()}/.config/osb`,
-    BASH_INTRO_STR: `#!/usr/bin/env bash
+  DEFAULT_DOTFILES_DIR: `${os.homedir()}/.dotfiles`,
+  DEFAULT_OSB_CONFIG_DIR: `${os.homedir()}/.config/osb`,
+  BASH_INTRO_STR: `#!/usr/bin/env bash
 #
 # Run the script with sh ~/osb.bash
 # You can also pass some arguments to the install script to set some these options:
@@ -16,7 +16,7 @@ module.exports.CONST = {
 
 set -e
 `,
-    BASH_PACKAGES_FOR_LOOP: (arr) => `
+  BASH_PACKAGES_FOR_LOOP: (arr) => `
 function install_packages() {
     local packages=(
 ${arr.map((e) => indent(`\"${e}\"`, 8)).join(EOL)}
@@ -27,12 +27,12 @@ ${arr.map((e) => indent(`\"${e}\"`, 8)).join(EOL)}
     done
 }
 `,
-    BASH_BEFORE_ALL: (arr) => `
+  BASH_BEFORE_ALL: (arr) => `
 function before_all() {
 ${indent(arr.join(` && ${EOL}`))}
 }
 `,
-    BASH_DOTFILES_INSTALL: (arr) => `
+  BASH_DOTFILES_INSTALL: (arr) => `
 function install_dotfiles() {
     local dotfiles=(
 ${arr.map((e) => indent(`\"${e}\"`, 8)).join(EOL)}
@@ -43,13 +43,13 @@ ${arr.map((e) => indent(`\"${e}\"`, 8)).join(EOL)}
     done
 }
 `,
-    BASH_RUN_ALL_INSTALLATIONS: (
-        has_before_all,
-        has_packages,
-        has_dotfiles
-    ) => `
+  BASH_RUN_ALL_INSTALLATIONS: (
+    has_before_all,
+    has_packages,
+    has_dotfiles
+  ) => `
 ${has_before_all ? 'before_all &&' : ''}
 ${has_packages ? 'install_packages;' : ''}
 ${has_dotfiles ? 'install_dotfiles' : ''}
-`,
+`
 }

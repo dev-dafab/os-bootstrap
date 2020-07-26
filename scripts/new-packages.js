@@ -1,32 +1,32 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
-const {test, mkdir, touch, exec} = require('shelljs');
-const {resolve} = require('path');
-const fs = require('fs');
+const { program } = require('commander')
+const { test, mkdir, touch, exec } = require('shelljs')
+const { resolve } = require('path')
+const fs = require('fs')
 
 const test_string = `
 test('adds 1 + 2 to equal 3', () => {
   expect(1 + 2).toBe(3);
 });
-`;
+`
 
 program
-    .option('-n, --name <type>', 'name of the submodule')
-    .option('-type, --type [type]', 'type configurator or installer');
+  .option('-n, --name <type>', 'name of the submodule')
+  .option('-type, --type [type]', 'type configurator or installer')
 
-program.parse(process.argv);
+program.parse(process.argv)
 
-const name = program.name;
-const type = program.type;
-const path = resolve( __dirname, '..', `packages/${name}-${type}`);
+const name = program.name
+const type = program.type
+const path = resolve(__dirname, '..', `packages/${name}-${type}`)
 
 const yaml_string = `
 id: ${name}.${type}
 name: ${name}${type}
 author:
 objects:
-`;
+`
 
 const jest_config = `
 // For a detailed explanation regarding each configuration property, visit:
@@ -58,7 +58,7 @@ module.exports = {
     "/node_modules/"
   ],
 };
-`;
+`
 
 const package_string = `
 {
@@ -94,26 +94,24 @@ const package_string = `
     "start": "nodemon"
   },
 }
-`;
-
+`
 
 if (!test('-d', path)) {
-    mkdir('-p', path);
+  mkdir('-p', path)
 
-    touch(resolve(path, 'index.js'));
-    touch(resolve(path, `${name}.${type}.yaml`));
-    fs.writeFileSync(resolve(path, `${name}.${type}.yaml`), yaml_string, 'utf8');
+  touch(resolve(path, 'index.js'))
+  touch(resolve(path, `${name}.${type}.yaml`))
+  fs.writeFileSync(resolve(path, `${name}.${type}.yaml`), yaml_string, 'utf8')
 
-    touch(resolve(path, 'jest.config.js'));
-    fs.writeFileSync(resolve(path, 'jest.config.js'), jest_config, 'utf8');
+  touch(resolve(path, 'jest.config.js'))
+  fs.writeFileSync(resolve(path, 'jest.config.js'), jest_config, 'utf8')
 
-    mkdir('-p', resolve(path, 'test'));
-    touch(resolve(path, 'test/index.test.js'));
-    fs.writeFileSync(resolve(path, 'test/index.test.js'), test_string, 'utf8');
+  mkdir('-p', resolve(path, 'test'))
+  touch(resolve(path, 'test/index.test.js'))
+  fs.writeFileSync(resolve(path, 'test/index.test.js'), test_string, 'utf8')
 
-    exec(`cd ${path} && yarn init -y`)
-    exec(`cd ${path} && yarn add jest jsdoc prettier yaml-schema-validator inquirer -D`)
+  exec(`cd ${path} && yarn init -y`)
+  exec(`cd ${path} && yarn add jest jsdoc prettier yaml-schema-validator inquirer -D`)
 
-    exec(`cd ${path} && yarn init -y`)
+  exec(`cd ${path} && yarn init -y`)
 }
-

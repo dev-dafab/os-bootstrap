@@ -16,33 +16,33 @@ const defaultErrorHandler = (error) => console.log(error)
 
 // TODO: find a better default success Handler
 const defaultSuccessHandler = (val) =>
-    console.log(`SUCCESS HAND ${val.toString()}`)
+  console.log(`SUCCESS HAND ${val.toString()}`)
 
 const pathConfigurators = [
-    path.resolve(__dirname, 'packages/configurators/os/os.configurator.yaml'),
-    path.resolve(
-        __dirname,
-        'packages/configurators/shell/shell.configurator.yaml'
-    ),
-    // path.resolve(__dirname, "packages/configurators/installation_command/installation_command.configurator.yaml"),
-    // path.resolve(__dirname, "packages/configurators/dotfiles/dotfiles.configurator.yaml")
+  path.resolve(__dirname, 'packages/configurators/os/os.configurator.yaml'),
+  path.resolve(
+    __dirname,
+    'packages/configurators/shell/shell.configurator.yaml'
+  )
+  // path.resolve(__dirname, "packages/configurators/installation_command/installation_command.configurator.yaml"),
+  // path.resolve(__dirname, "packages/configurators/dotfiles/dotfiles.configurator.yaml")
 ]
 
 const pathInstallers = [
-    path.resolve(
-        __dirname,
-        'packages/installers/fzf-installer/fzf.installer.yaml'
-    ),
+  path.resolve(
+    __dirname,
+    'packages/installers/fzf-installer/fzf.installer.yaml'
+  )
 ]
 
 const contents = []
 
 try {
-    for (const _path of pathConfigurators) {
-        contents.push(yaml.load(fs.readFileSync(_path)))
-    }
+  for (const _path of pathConfigurators) {
+    contents.push(yaml.load(fs.readFileSync(_path)))
+  }
 } catch (e) {
-    console.log(e)
+  console.log(e)
 }
 
 var prompts = new Subject()
@@ -50,13 +50,13 @@ const prompt = inquirer.prompt(prompts)
 
 clear()
 for (const content of contents) {
-    content.Objects.forEach((config) => {
-        prompts.next(config)
-    })
+  content.Objects.forEach((config) => {
+    prompts.next(config)
+  })
 }
 
 prompt.ui.process.subscribe((val) => {
-    console.log(val)
-    prompts.complete()
-    clear({ fullClear: false })
+  console.log(val)
+  prompts.complete()
+  clear({ fullClear: false })
 })

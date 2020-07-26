@@ -11,24 +11,7 @@
     "index.js",
     "help.message.js"
   ],
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
-  },
-  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
-  },
-  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "bin": {
-    "os-bootstrap": "./build/src/index.js"
-  },
   "private": false,
-  "osb-name": "osb",
   "scripts": {
     "test": "jest --coverage=true",
     "assets": "./node_modules/figlet/fonts/*",
@@ -62,7 +45,6 @@
     "inquirer": "^7.1.0",
     "rxjs": "^6.6.0"
   },
-  "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99",
   "devDependencies": {
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
@@ -71,10 +53,30 @@
     "configstore": "^5.0.1",
     "dotenv": "^8.2.0",
     "pkg": "^4.4.8",
+    "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "shelljs": "^0.8.4",
+    "standard": "^14.3.4",
     "which": "^2.0.2"
   },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "bin": {
+    "os-bootstrap": "./build/src/index.js"
+  },
+  "osb-name": "osb",
+  "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99",
   "assets": [
     "./node_modules/figlet/fonts/*"
   ],

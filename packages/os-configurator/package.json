@@ -10,25 +10,29 @@
     "!.",
     "build"
   ],
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
-  },
-  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
-  },
-  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "private": false,
-  "os-bootstrap-specification-file": "os.configurator.yaml",
   "scripts": {
     "test": "jest",
     "build": "gulp build",
     "start": "nodemon"
   },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "standard": "^14.3.4"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap#readme",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/dev-dafab/os-bootstrap.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "os-bootstrap-specification-file": "os.configurator.yaml",
   "gitHead": "64190f57b6d166ad61134c75ec3da71e8b35ae99"
 }

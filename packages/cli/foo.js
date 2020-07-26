@@ -1,7 +1,7 @@
 const { Readable } = require('stream')
 
 const inStream = new Readable({
-    read() {},
+  read () {}
 })
 
 inStream.push('ABCDEFGHIJKLM')

@@ -1,69 +1,69 @@
-const { src, dest, series } = require('gulp'),
-    concat = require('gulp-concat'),
-    gap = require('gulp-append-prepend'),
-    js_yaml = require('js-yaml'),
-    zip = require('gulp-zip'),
-    fs = require('fs'),
-    del = require('del'),
-    path = require('path'),
-    pack = require('./package.json'),
-    appname = pack.name,
-    appversion = pack.version,
-    specification_file = pack['os-bootstrap-specification-file']
+const { src, dest, series } = require('gulp')
+const concat = require('gulp-concat')
+const gap = require('gulp-append-prepend')
+const js_yaml = require('js-yaml')
+const zip = require('gulp-zip')
+const fs = require('fs')
+const del = require('del')
+const path = require('path')
+const pack = require('./package.json')
+const appname = pack.name
+const appversion = pack.version
+const specification_file = pack['os-bootstrap-specification-file']
 
 const paths = {
-    node_modules: './node_modules/',
-    src: './src/',
-    build: './build/',
-    json: './json/',
+  node_modules: './node_modules/',
+  src: './src/',
+  build: './build/',
+  json: './json/'
 }
 
-function clean() {
-    return del([paths.build])
+function clean () {
+  return del([paths.build])
 }
 
-function concatTask() {
-    return src(['src/**/*.js', 'index.js'])
-        .pipe(concat('index.js'))
-        .pipe(dest('./build/'))
+function concatTask () {
+  return src(['src/**/*.js', 'index.js'])
+    .pipe(concat('index.js'))
+    .pipe(dest('./build/'))
 }
 
-function yamlTask(cb) {
-    const content = js_yaml.load(fs.readFileSync(specification_file))
-    fs.writeFileSync(
+function yamlTask (cb) {
+  const content = js_yaml.load(fs.readFileSync(specification_file))
+  fs.writeFileSync(
         `./build/${path.parse(specification_file).name}.json`,
         JSON.stringify(content, null, ' ')
-    )
-    return cb()
+  )
+  return cb()
 }
 
-function prependSpecTask() {
-    return src('build/index.js')
-        .pipe(
-            gap.appendText(
+function prependSpecTask () {
+  return src('build/index.js')
+    .pipe(
+      gap.appendText(
                 `module.exports.specification = require("./${
                     path.parse(specification_file).name
                 }.json")`
-            )
-        )
-        .pipe(dest(paths.build))
+      )
+    )
+    .pipe(dest(paths.build))
 }
 
-function copyTask() {
-    return src(['./package.json']).pipe(dest(paths.build))
+function copyTask () {
+  return src(['./package.json']).pipe(dest(paths.build))
 }
 
-function prebublish() {
-    return src('build/*')
-        .pipe(zip(`${appname}-${appversion}.zip`))
-        .pipe(dest(paths.build))
+function prebublish () {
+  return src('build/*')
+    .pipe(zip(`${appname}-${appversion}.zip`))
+    .pipe(dest(paths.build))
 }
 
 exports.build = series(
-    clean,
-    concatTask,
-    yamlTask,
-    prependSpecTask,
-    copyTask,
-    prebublish
+  clean,
+  concatTask,
+  yamlTask,
+  prependSpecTask,
+  copyTask,
+  prebublish
 )

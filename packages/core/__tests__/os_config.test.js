@@ -1,9 +1,9 @@
 const proxyquire = require('proxyquire')
 
 describe('OS Properties Set Suite Linux', () => {
-    test('install command should contains apt-get', () => {
-        expect(0).toBe(0)
-    })
+  test('install command should contains apt-get', () => {
+    expect(0).toBe(0)
+  })
 })
 
 /*
