@@ -1,4 +1,3 @@
-const { program } = require('commander')
 const path = require('path')
 const shelljs = require('shelljs')
 const { writeFile, rootDir } = require('./util')
@@ -113,5 +112,42 @@ function main (_packageJsons) {
   }
   packageJsons.forEach(formatPackageJson)
 }
+function isObject (item) {
+  return (item && typeof item === 'object' && !Array.isArray(item))
+}
+
+function mergeDeep (target, ...sources) {
+  if (!sources.length) return target
+  const source = sources.shift()
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} })
+        mergeDeep(target[key], source[key])
+      } else {
+        Object.assign(target, { [key]: source[key] })
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources)
+}
+
+function updateOrAddEntry (_packageJsons, entries) {
+  let packageJsons = []
+  try {
+    packageJsons = _packageJsons.map(e => path.resolve(e, 'package.json'));
+  } catch (e) {
+    console.error('cannot resolve package.json')
+    process.exit(-1)
+  }
+  packageJsons.forEach(path => {
+    const jsonObject = mergeDeep(require(path), JSON.parse(entries))
+    writeFile(path, JSON.stringify(jsonObject));
+    main(_packageJsons);
+  })
+}
 
 module.exports = main
+module.exports.updateOrAddEntry = updateOrAddEntry

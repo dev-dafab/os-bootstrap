@@ -24,7 +24,8 @@
     "lint:fix": "gts fix",
     "posttest": "echo 'run check'",
     "start": "nodemon",
-    "debug-test": "node-ts --inspect-brk jest -i"
+    "debug-test": "node-ts --inspect-brk jest -i",
+    "lint:js": "standard"
   },
   "dependencies": {
     "class-transformer": "^0.2.3",

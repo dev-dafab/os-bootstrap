@@ -27,7 +27,8 @@
     "test:wizard": "node src/index.js wizard",
     "test:wizard-with-config-file": "node src/index.js wizard --config-file documentation/sample-config.yaml",
     "browser:build": "ENV=BROWSER node -r dotenv/config node_modules/browserify/bin/cmd.js src/wizard/index.js src/get-script/index.js -r './src/configstore-wrapper.js':configstore  -r './src/fs-wrapper.js':fs >> build/osb-browser.js",
-    "start": "nodemon"
+    "start": "nodemon",
+    "lint:js": "standard"
   },
   "dependencies": {
     "@os-bootstrap/config-validator": "^1.0.3",

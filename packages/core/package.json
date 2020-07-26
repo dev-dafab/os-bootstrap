@@ -14,7 +14,8 @@
   "scripts": {
     "test": "jest --coverage=true",
     "build": "echo build",
-    "start": "nodemon"
+    "start": "nodemon",
+    "lint:js": "standard"
   },
   "devDependencies": {
     "prettier": "^2.0.5",

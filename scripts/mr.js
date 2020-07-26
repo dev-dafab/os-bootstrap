@@ -2,6 +2,7 @@ const { program } = require('commander')
 const shelljs = require('shelljs')
 const { getModules, resolvePackages } = require('./util')
 const lintFixPackageJson = require('./lint-package-spec')
+const { updateOrAddEntry } = require('./lint-package-spec')
 
 const exec = (command) => shelljs.exec(command, { silent: false })
 
@@ -37,6 +38,17 @@ function main () {
         ? resolvePackages(packages, ignore)
         : getModules(ignore)
       lintFixPackageJson(_packages)
+    })
+
+  program.command('update-script [packages...]')
+    .option('--ignore <files>', 'depedencies to ignores', [])
+    .option('--entry <entrie>')
+    .option('--value <value>')
+    .action((packages, { ignore, entry, value }) => {
+      const _packages = packages && packages.length > 0
+        ? resolvePackages(packages, ignore)
+        : getModules(ignore)
+      updateOrAddEntry(_packages, entry, value)
     })
 
   program.command('run <cmd> [packages...]')
