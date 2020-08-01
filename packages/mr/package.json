@@ -1,0 +1,55 @@
+{
+  "name": "@os-bootstrap/mr",
+  "version": "1.0.0",
+  "description": "@osbootstrap/mr",
+  "main": "lib/mr.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "private": false,
+  "scripts": {
+    "lint-js-fix": "prettier --no-config --write '{src,__tests__,lib}/**/*.js' && standard --fix 'lib/**/*js' 'src/**/*js'",
+    "lint-package-json-fix": "cd .. && cd .. && node packages/mr/lib/mr lintFixPackageJson mr",
+    "lint-js": "standard 'lib/**/*js' 'src/**/*js'",
+    "lint": "yarn lint-js",
+    "lint-fix": "yarn lint-js-fix && yarn lint-package-json-fix",
+    "prelink": "npm unlink @osbootstrap/mr",
+    "link": "npm link",
+    "start": "node lib/mr.js",
+    "start:new-module": "cd .. && cd .. && node packages/mr/lib/mr.js new-module ",
+    "pretest": "yarn lint",
+    "test": "echo \"Error: run tests from root\""
+  },
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "json": "^9.0.6",
+    "lerna": "^3.22.1",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "standard": "^14.3.4"
+  },
+  "author": "Fabrice Dufils S. <dev.dafab@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-dafab/os-bootstrap/issues"
+  },
+  "homepage": "https://github.com/dev-dafab/os-bootstrap/tree/master/packages/foo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-dafab/os-bootstrap.git"
+  },
+  "keywords": [
+    "cli",
+    "tools",
+    "monorepo"
+  ],
+  "bin": {
+    "mr": "lib/mr.js"
+  }
+}
