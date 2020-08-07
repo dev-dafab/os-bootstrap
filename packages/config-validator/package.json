@@ -28,7 +28,7 @@
     "lint:js": "standard"
   },
   "dependencies": {
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "es6-shim": "^0.35.5",
     "node-ts": "^5.0.6",
